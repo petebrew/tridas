@@ -1,5 +1,0 @@
-TRiDaS v1.2 Changelog
-***************************
-
-- Added sample.recommendedSeries
-- Added 'unknown' option to all 'presence' lookups
