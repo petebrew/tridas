@@ -1,4 +1,4 @@
-TRiDaS 1.2: Tree-Ring Data Standard for dendrochronology
+TRiDaS 1.x: Tree-Ring Data Standard for dendrochronology
 See http://www.tridas.org/ for:
 - more information
 - contact information 
