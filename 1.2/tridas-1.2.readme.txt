@@ -1,0 +1,10 @@
+TRiDaS 1.2: Tree-Ring Data Standard for dendrochronology
+See http://www.tridas.org/ for:
+- more information
+- contact information 
+- latest version
+
+Version date: 2009-XX-XX
+
+This XML Schema is available under LGPLv3 
+more information on http://www.gnu.org/licenses/lgpl.html
