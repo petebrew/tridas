@@ -3,6 +3,6 @@ TRiDaS v1.2 Changelog
 
 - Added object.preferredSeries
 - Added element.preferredSeries
-- Added 'unknown' option to all 'presence' lookups
-- Allowing <variable> and <unitless> to appear together in <value>
+- Added 'unknown' option to all 'presence' lookups e.g. pithPresence
+- Allow <variable> and <unitless> to appear together in <value>
 
