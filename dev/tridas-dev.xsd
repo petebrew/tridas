@@ -83,37 +83,38 @@ more information on http://www.gnu.org/licenses/lgpl.html
 	<!-- linkSeries -->
 	<xs:element name="linkSeries">
 		<xs:complexType>
-			<xs:choice>
-				<xs:element name="idRef" maxOccurs="unbounded">
+			<xs:sequence>
+				<xs:element name="preferredSeries" minOccurs="0" maxOccurs="1">
 					<xs:complexType>
-						<xs:attribute name="ref" type="xs:IDREF"/>
+						<xs:choice>
+							<xs:element name="idRef">
+								<xs:complexType>
+									<xs:attribute name="ref" type="xs:IDREF"/>
+								</xs:complexType>
+							</xs:element>
+							<xs:element name="xLink">
+								<xs:complexType>
+									<xs:attribute ref="xlink:href"/>
+								</xs:complexType>
+							</xs:element>
+							<xs:element ref="identifier"/>
+						</xs:choice>
 					</xs:complexType>
 				</xs:element>
-				<xs:element name="xLink" maxOccurs="unbounded">
-					<xs:complexType>
-						<xs:attribute ref="xlink:href"/>
-					</xs:complexType>
-				</xs:element>
-				<xs:element ref="identifier" maxOccurs="unbounded"/>
-			</xs:choice>
-		</xs:complexType>
-	</xs:element>
-	<!-- recommendedSeries -->
-	<xs:element name="recommendedSeries">
-		<xs:complexType>
-			<xs:choice>
-				<xs:element name="idRef" maxOccurs="unbounded">
-					<xs:complexType>
-						<xs:attribute name="ref" type="xs:IDREF"/>
-					</xs:complexType>
-				</xs:element>
-				<xs:element name="xLink" maxOccurs="unbounded">
-					<xs:complexType>
-						<xs:attribute ref="xlink:href"/>
-					</xs:complexType>
-				</xs:element>
-				<xs:element ref="identifier" maxOccurs="unbounded"/>
-			</xs:choice>
+				<xs:choice minOccurs="0" maxOccurs="unbounded">
+					<xs:element name="idRef">
+						<xs:complexType>
+							<xs:attribute name="ref" type="xs:IDREF"/>
+						</xs:complexType>
+					</xs:element>
+					<xs:element name="xLink">
+						<xs:complexType>
+							<xs:attribute ref="xlink:href"/>
+						</xs:complexType>
+					</xs:element>
+					<xs:element ref="identifier"/>
+				</xs:choice>			
+			</xs:sequence>
 		</xs:complexType>
 	</xs:element>	
 	<!-- type -->
@@ -305,7 +306,7 @@ more information on http://www.gnu.org/licenses/lgpl.html
 				<xs:element ref="lastModifiedTimestamp" minOccurs="0"/>
 				<xs:element ref="type"/>
 				<xs:element ref="description" minOccurs="0"/>
-				<xs:element ref="linkSeries" minOccurs="0" maxOccurs="unbounded"/>
+				<xs:element ref="linkSeries" minOccurs="0" maxOccurs="1"/>				
 				<xs:element ref="file" minOccurs="0" maxOccurs="unbounded"/>
 				<xs:element ref="creator" minOccurs="0"/>
 				<xs:element ref="owner" minOccurs="0"/>
@@ -355,7 +356,7 @@ more information on http://www.gnu.org/licenses/lgpl.html
 				<xs:element ref="lastModifiedTimestamp" minOccurs="0"/>
 				<xs:element ref="type" minOccurs="0"/>
 				<xs:element ref="description" minOccurs="0"/>
-				<xs:element ref="linkSeries" minOccurs="0" maxOccurs="unbounded"/>
+				<xs:element ref="linkSeries" minOccurs="0" maxOccurs="1"/>		
 				<xs:element ref="file" minOccurs="0" maxOccurs="unbounded"/>
 				<xs:element ref="taxon"/>
 				<xs:element ref="shape" minOccurs="0"/>
@@ -486,7 +487,6 @@ more information on http://www.gnu.org/licenses/lgpl.html
 				<xs:element ref="position" minOccurs="0"/>
 				<xs:element ref="state" minOccurs="0"/>
 				<xs:element ref="knots" minOccurs="0"/>
-				<xs:element ref="recommendedSeries" minOccurs="0" maxOccurs="1"/>
 				<xs:element ref="genericField" minOccurs="0" maxOccurs="unbounded"/>
 				<xs:choice>
 					<xs:element ref="radius" minOccurs="0"/>
@@ -729,7 +729,7 @@ more information on http://www.gnu.org/licenses/lgpl.html
 				<xs:element ref="createdTimestamp" minOccurs="0"/>
 				<xs:element ref="lastModifiedTimestamp" minOccurs="0"/>
 				<xs:element ref="type"/>
-				<xs:element ref="linkSeries" maxOccurs="unbounded"/>
+				<xs:element ref="linkSeries" maxOccurs="1"/>
 				<xs:element ref="objective" minOccurs="0"/>
 				<xs:element ref="standardizingMethod" minOccurs="0"/>
 				<xs:element ref="author" minOccurs="0"/>
@@ -777,10 +777,15 @@ more information on http://www.gnu.org/licenses/lgpl.html
 			<xs:sequence>
 				<xs:choice>
 					<xs:sequence>
-						<xs:element ref="variable"/>
-						<xs:element ref="unit"/>
+						<xs:element ref="variable" minOccurs="1" maxOccurs="1"/>
+						<xs:choice>
+							<xs:element ref="unitless"/>	
+							<xs:element ref="unit"/>
+						</xs:choice>
 					</xs:sequence>
-					<xs:element ref="unitless"/>
+					<xs:sequence>
+						<xs:element ref="unitless"/>
+					</xs:sequence>
 				</xs:choice>
 				<xs:element ref="value" maxOccurs="unbounded"/>
 			</xs:sequence>
