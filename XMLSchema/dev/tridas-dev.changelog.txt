@@ -7,4 +7,5 @@ TRiDaS v1.2 Changelog
 - Allow <variable> and <unitless> to appear together in <value>
 - Removed erroneous maxOccurs="unbounded" from measurementSeries
 - derivedSeries and measurementSeries inherit common fields from baseSeries
+- Added pithAndSapwoodInfo entity and included it in radius and measurementSeries
 
