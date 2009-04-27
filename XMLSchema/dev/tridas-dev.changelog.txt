@@ -5,4 +5,6 @@ TRiDaS v1.2 Changelog
 - Added element.preferredSeries
 - Added 'unknown' option to all 'presence' lookups e.g. pithPresence
 - Allow <variable> and <unitless> to appear together in <value>
+- Removed erroneous maxOccurs="unbounded" from measurementSeries
+- derivedSeries and measurementSeries inherit common fields from baseSeries
 
