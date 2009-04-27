@@ -511,6 +511,23 @@ more information on http://www.gnu.org/licenses/lgpl.html
 	<!-- SAMPLE.knots -->
 	<xs:element name="knots" type="xs:boolean"/>
 	<!-- SAMPLE.genericField (global type) -->
+
+<!-- 
+	%%%%%%%%%%%%%%%%%%%%%%%%%%
+	%		PITHANDSAPWOODINFO 
+	%%%%%%%%%%%%%%%%%%%%%%%%%%-->
+	<xs:element name="pithAndSapwoodInfo">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="pith"/>
+				<xs:element ref="heartwood"/>
+				<xs:element ref="sapwood"/>
+				<xs:element ref="bark"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	
+	
 	<!-- 
 %%%%%%%%%%%%%%
 %		RADIUS 
@@ -522,10 +539,7 @@ more information on http://www.gnu.org/licenses/lgpl.html
 				<xs:element ref="identifier" minOccurs="0"/>
 				<xs:element ref="createdTimestamp" minOccurs="0"/>
 				<xs:element ref="lastModifiedTimestamp" minOccurs="0"/>
-				<xs:element ref="pith"/>
-				<xs:element ref="heartwood"/>
-				<xs:element ref="sapwood"/>
-				<xs:element ref="bark"/>
+				<xs:element ref="pithAndSapwoodInfo" minOccurs="0" maxOccurs="1"/>
 				<xs:element ref="azimuth" minOccurs="0"/>
 				<xs:element ref="genericField" minOccurs="0" maxOccurs="unbounded"/>
 				<xs:element ref="measurementSeries" minOccurs="0" maxOccurs="unbounded"/>
@@ -628,6 +642,7 @@ more information on http://www.gnu.org/licenses/lgpl.html
 			<xs:element ref="identifier" minOccurs="0"/>
 			<xs:element ref="createdTimestamp" minOccurs="0"/>
 			<xs:element ref="lastModifiedTimestamp" minOccurs="0"/>
+			<xs:element ref="pithAndSapwoodInfo" minOccurs="0" maxOccurs="1"/>			
 			<xs:element ref="analyst" minOccurs="0"/>
 			<xs:element ref="dendrochronologist" minOccurs="0"/>
 			<xs:element ref="measuringMethod" minOccurs="0" maxOccurs="1"/>
