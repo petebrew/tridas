@@ -8,4 +8,16 @@ TRiDaS v1.2 Changelog
 - Removed erroneous maxOccurs="unbounded" from measurementSeries
 - derivedSeries and measurementSeries inherit common fields from baseSeries
 - Added pithAndSapwoodInfo entity and included it in radius and measurementSeries
-
+- Make 'variable' required in *series
+- Separated TRiDaS normalised controlled vocabs into simpleTypes 
+- Separated common fields (id, title etc) into a base type from which each entity inherits
+- Corrected XSD error that stopped samples from having multiple radii 
+- Added documentation inline
+- Added controlled vocabulary to locationType
+- Removed the normalTridas attribute from taxon controlledVoc
+- Moved name, place and country element types inline in project.laboratory
+- Moved all TRiDaS vocabularies into own section of XSD
+- Added TRiDaS shape vocabulary
+- Added TRiDaS measuringMethod vocabulary
+- Removed unused measurementSeries.measuringDate 
+- Removed unused derivedSeries.derivationDate
