@@ -23,23 +23,197 @@ more information on http://www.gnu.org/licenses/lgpl.html
 	<xs:import namespace="http://www.opengis.net/gml" schemaLocation="gmlsf.xsd"/>
 	<!-- download-location: http://www.tridas.org/1.1/gmlsf.xsd -->
 	<!-- original location: http://schemas.opengis.net/gml/3.1.1/profiles/gmlsfProfile/1.0.0/gmlsf.xsd -->
-	<!-- 
 
+<!--
+%%%%%%%%%%%%%%
+%		TRIDAS VOCABULARIES
+%%%%%%%%%%%%%% -->
+	<!-- TRiDaS controlledVoc for measuringMethod-->
+	<xs:simpleType name="normalTridasMeasuringMethod">
+		<xs:annotation>
+			<xs:documentation>
+				TriDaS specified controlled vocabulary for the method of measurement
+			</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="Measuring platform"/>
+			<xs:enumeration value="Hand lens and graticule"/>
+		</xs:restriction>
+	</xs:simpleType>	
+	<!-- TRiDaS controlledVoc for shape-->
+	<xs:simpleType name="normalTridasShape">
+		<xs:annotation>
+			<xs:documentation>
+				TriDaS specified controlled vocabulary element shape adapted from dictionary 
+				created by BIAX Consult, Zaandam (NL).
+			</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="Whole section"/>
+			<xs:enumeration value="Half section"/>
+			<xs:enumeration value="Third section"/>
+			<xs:enumeration value="Quarter section"/>
+			<xs:enumeration value="Wedge where radius is smaller than circumference"/>
+			<xs:enumeration value="Wedge where radius equals the circumference"/>
+			<xs:enumeration value="Wedge where radius is bigger than the circumference"/>
+			<xs:enumeration value="Beam straightened on one side"/>
+			<xs:enumeration value="Squared beam from whole section"/>
+			<xs:enumeration value="Squared beam from half section"/>
+			<xs:enumeration value="Squared beam from quarter section"/>
+			<xs:enumeration value="Plank cut on one side"/>
+			<xs:enumeration value="Radial plank through pith"/>
+			<xs:enumeration value="Radial plank up to pith"/>
+			<xs:enumeration value="Tangential plank not including pith with breadth larger than a quarter section"/>
+			<xs:enumeration value="Plank not including pith with breadth smaller than a quarter section"/>
+			<xs:enumeration value="Small part of section"/>
+			<xs:enumeration value="Part of undetermined section"/>
+			<xs:enumeration value="Unknown"/>
+		</xs:restriction>
+	</xs:simpleType>
+<!-- TRiDaS controlledVoc for LocationType-->
+	<xs:simpleType name="normalTridasLocationType">
+		<xs:annotation>
+			<xs:documentation>
+				TriDaS specified controlled vocabulary for the type of location
+			</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="Growth location"/>
+			<xs:enumeration value="Location of use (static)"/>
+			<xs:enumeration value="Location of use (mobile)"/>
+			<xs:enumeration value="Current location"/>
+			<xs:enumeration value="Manufacture location"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<!-- TRiDaS controlledVoc for Variable-->
+	<xs:simpleType name="normalTridasVariable">
+		<xs:annotation>
+			<xs:documentation>TRiDaS specified controlled vocabulary for the measurementSeries variable</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="Ring width"/>
+			<xs:enumeration value="Earlywood width"/>
+			<xs:enumeration value="Latewood width"/>
+			<xs:enumeration value="Ring density"/>
+			<xs:enumeration value="Earlywood density"/>
+			<xs:enumeration value="Latewood density"/>
+			<xs:enumeration value="Maximum density"/>
+			<xs:enumeration value="Latewood percent"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<!-- TRiDaS controlledVoc for Units-->
+	<xs:simpleType name="normalTridasUnit">
+		<xs:annotation>
+			<xs:documentation>TRiDaS specified controlled vocabulary for the units in which data are stored</xs:documentation>
+		</xs:annotation>		
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="micrometres"/>
+			<xs:enumeration value="1/100th millimetres"/>
+			<xs:enumeration value="1/10th millimetres"/>
+			<xs:enumeration value="millimetres"/>
+			<xs:enumeration value="centimetres"/>
+			<xs:enumeration value="metres"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<!-- TRiDaS controlledVoc for ring remarks-->
+	<xs:simpleType name="normalTridasRemark">
+		<xs:annotation>
+			<xs:documentation>TRiDaS specified controlled vocabulary for remarks attached to rings</xs:documentation>
+		</xs:annotation>		
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="Fire damage"/>
+			<xs:enumeration value="Frost damage"/>
+			<xs:enumeration value="Crack"/>
+			<xs:enumeration value="False ring(s)"/>
+			<xs:enumeration value="Compression wood"/>
+			<xs:enumeration value="Tension wood"/>
+			<xs:enumeration value="Traumatic ducts"/>
+			<xs:enumeration value="Unspecified injury"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<!-- TRiDaS controlledVoc for project categories-->
+	<xs:simpleType name="normalTridasCategory">
+		<xs:annotation>
+			<xs:documentation>Enumeration of TRiDaS recognised project categories</xs:documentation>
+		</xs:annotation>		
+		<xs:restriction base="xs:string">
+			<xs:enumeration value=""/>
+		</xs:restriction>
+	</xs:simpleType>
+
+
+<!--
 %%%%%%%%%%%%%%
 %		GLOBAL TYPES
 %%%%%%%%%%%%%% -->
+	
 	<!-- controlledVoc -->
 	<xs:complexType name="controlledVoc">
+		<xs:annotation>
+			<xs:documentation>
+				A controlled vocabulary is used to limit users to a pick list of values
+			</xs:documentation>
+		</xs:annotation>
 		<xs:simpleContent>
 			<xs:extension base="xs:string">
-				<xs:attribute name="normalStd"/>
-				<xs:attribute name="normalId"/>
-				<xs:attribute name="normal"/>
+				<xs:attribute name="normalStd">
+					<xs:annotation>
+						<xs:documentation>The name of the standard used to control this vocabulary</xs:documentation>
+					</xs:annotation>
+				</xs:attribute>
+				<xs:attribute name="normalId">
+					<xs:annotation>
+						<xs:documentation>The ID value in the standard dictionary corresponding to this entry</xs:documentation>
+					</xs:annotation>
+				</xs:attribute>
+				<xs:attribute name="normal">
+					<xs:annotation>
+						<xs:documentation>The normalised name for this entry</xs:documentation>
+					</xs:annotation>
+				</xs:attribute>
 			</xs:extension>
 		</xs:simpleContent>
 	</xs:complexType>
+
+	<!-- Dating suffix data type-->
+	<xs:simpleType name="datingSuffix">
+		<xs:annotation>
+			<xs:documentation>Suffix to add to a year number</xs:documentation>
+		</xs:annotation>		
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="AD"/>
+			<xs:enumeration value="BC"/>
+			<xs:enumeration value="BP"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<!-- Presence/Absence enumeration-->
+	<xs:simpleType name="presenceAbsence">
+		<xs:annotation>
+			<xs:documentation>Simple presence/absence data type</xs:documentation>
+		</xs:annotation>		
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="present"/>
+			<xs:enumeration value="absent"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<!-- Complex presence enumeration-->
+	<xs:simpleType name="complexPresenceAbsence">
+		<xs:annotation>
+			<xs:documentation>Complex presence/absence data type with additional possibilities</xs:documentation>
+		</xs:annotation>		
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="unknown"/>
+			<xs:enumeration value="not applicable"/>
+			<xs:enumeration value="absent"/>
+			<xs:enumeration value="complete"/>
+			<xs:enumeration value="incomplete"/>
+		</xs:restriction>
+	</xs:simpleType>
 	<!-- date and time -->
 	<xs:simpleType name="certainty">
+		<xs:annotation>
+			<xs:documentation>Simple certainty data type</xs:documentation>
+		</xs:annotation>		
 		<xs:restriction base="xs:string">
 			<xs:enumeration value="unknown"/>
 			<xs:enumeration value="exact"/>
@@ -49,15 +223,31 @@ more information on http://www.gnu.org/licenses/lgpl.html
 		</xs:restriction>
 	</xs:simpleType>
 	<xs:complexType name="dateTime">
+		<xs:annotation>
+			<xs:documentation>An extension to the basic dateTime type which includes 
+				an optional 'certainty' attribute.</xs:documentation>
+		</xs:annotation>
 		<xs:simpleContent>
 			<xs:extension base="xs:dateTime">
 				<xs:attribute name="certainty" type="certainty" use="optional"/>
 			</xs:extension>
 		</xs:simpleContent>
 	</xs:complexType>
-	<xs:element name="createdTimestamp" type="dateTime"/>
-	<xs:element name="lastModifiedTimestamp" type="dateTime"/>
+	<xs:element name="createdTimestamp" type="dateTime">
+		<xs:annotation>
+			<xs:documentation>Field containing date and time when this record was created</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="lastModifiedTimestamp" type="dateTime">
+		<xs:annotation>
+			<xs:documentation>Field containing date and time when this records was last updated</xs:documentation>
+		</xs:annotation>
+	</xs:element>
 	<xs:complexType name="date">
+		<xs:annotation>
+			<xs:documentation>An extension to the basic date type which includes 
+				an optional 'certainty' attribute.</xs:documentation>
+		</xs:annotation>		
 		<xs:simpleContent>
 			<xs:extension base="xs:date">
 				<xs:attribute name="certainty" type="certainty" use="optional"/>
@@ -65,26 +255,47 @@ more information on http://www.gnu.org/licenses/lgpl.html
 		</xs:simpleContent>
 	</xs:complexType>
 	<xs:complexType name="year">
+		<xs:annotation>
+			<xs:documentation>Data type for storing year.  Includes a separate 
+			suffix attribute and optional certainty value</xs:documentation>
+		</xs:annotation>		
 		<xs:simpleContent>
 			<xs:extension base="xs:positiveInteger">
 				<xs:attribute name="certainty" type="certainty" use="optional"/>
-				<xs:attribute name="suffix" use="required">
-					<xs:simpleType>
-						<xs:restriction base="xs:string">
-							<xs:enumeration value="AD"/>
-							<xs:enumeration value="BC"/>
-							<xs:enumeration value="BP"/>
-						</xs:restriction>
-					</xs:simpleType>
-				</xs:attribute>
+				<xs:attribute name="suffix" use="required" type="datingSuffix"/>		
 			</xs:extension>
 		</xs:simpleContent>
 	</xs:complexType>
+	<!-- tridasEntityBase -->
+	<xs:complexType name="tridasEntity" abstract="true">
+		<xs:annotation>
+			<xs:documentation>
+				Base data type inherited by all TRiDaS entities.  Contains the fields
+				common to all TRiDaS data entities.
+			</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element ref="title"/>
+			<xs:element ref="identifier" minOccurs="0"/>
+			<xs:element ref="createdTimestamp" minOccurs="0"/>
+			<xs:element ref="lastModifiedTimestamp" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
 	<!-- linkSeries -->
 	<xs:element name="linkSeries">
+		<xs:annotation>
+			<xs:documentation>
+				Fields for storing links to Series
+			</xs:documentation>
+		</xs:annotation>
 		<xs:complexType>
 			<xs:sequence>
 				<xs:element name="preferredSeries" minOccurs="0" maxOccurs="1">
+					<xs:annotation>
+						<xs:documentation>
+							Link to preferred (best/most representative) series for this entity 
+						</xs:documentation>
+					</xs:annotation>
 					<xs:complexType>
 						<xs:choice>
 							<xs:element name="idRef">
@@ -118,23 +329,60 @@ more information on http://www.gnu.org/licenses/lgpl.html
 		</xs:complexType>
 	</xs:element>	
 	<!-- type -->
-	<xs:element name="type" type="controlledVoc"/>
+	<xs:element name="type" type="controlledVoc">
+		<xs:annotation>
+			<xs:documentation>
+				The type of object this is.  Preferrably derived from a controlled vocabulary
+			</xs:documentation>
+		</xs:annotation>
+	</xs:element>
 	<!-- description -->
-	<xs:element name="description" type="xs:string"/>
+	<xs:element name="description" type="xs:string">
+		<xs:annotation>
+			<xs:documentation>
+				General description of this entity
+			</xs:documentation>
+		</xs:annotation>
+	</xs:element>
 	<!-- title -->
-	<xs:element name="title" type="xs:string"/>
+	<xs:element name="title" type="xs:string">
+		<xs:annotation>
+			<xs:documentation>
+				Title or name of this entity
+			</xs:documentation>
+		</xs:annotation>
+	</xs:element>
 	<!-- identifier -->
 	<xs:element name="identifier">
+		<xs:annotation>
+			<xs:documentation>
+				Unique (in combination with domain) identifier for this entity.  
+			</xs:documentation>
+		</xs:annotation>
 		<xs:complexType>
 			<xs:simpleContent>
 				<xs:extension base="xs:string">
-					<xs:attribute name="domain" use="required"/>
+					<xs:attribute name="domain" use="required">
+						<xs:annotation>
+							<xs:documentation>
+								The domain which this identifier is applicable to.  
+								Could be the URL of the organisations server or the 
+								name of the organisation as long as it is not 
+								ambiguous
+							</xs:documentation>
+						</xs:annotation>
+					</xs:attribute>
 				</xs:extension>
 			</xs:simpleContent>
 		</xs:complexType>
 	</xs:element>
 	<!-- extent -->
 	<xs:element name="extent">
+		<xs:annotation>
+			<xs:documentation>
+				Details about the geographic extent that this entity covers
+			</xs:documentation>
+		</xs:annotation>
 		<xs:complexType>
 			<xs:sequence>
 				<xs:element ref="extentGeometry"/>
@@ -143,15 +391,31 @@ more information on http://www.gnu.org/licenses/lgpl.html
 		</xs:complexType>
 	</xs:element>
 	<xs:element name="extentGeometry">
+		<xs:annotation>
+			<xs:documentation>
+				A GML representation of the extent
+			</xs:documentation>
+		</xs:annotation>
 		<xs:complexType>
 			<xs:sequence>
 				<xs:element ref="gml:Polygon"/>
 			</xs:sequence>
 		</xs:complexType>
 	</xs:element>
-	<xs:element name="extentComment" type="xs:string"/>
+	<xs:element name="extentComment" type="xs:string">
+		<xs:annotation>
+			<xs:documentation>
+				Any useful information about the extent
+			</xs:documentation>
+		</xs:annotation>
+	</xs:element>
 	<!-- location -->
 	<xs:element name="location">
+		<xs:annotation>
+			<xs:documentation>
+				Details about the geographical location of this entity
+			</xs:documentation>
+		</xs:annotation>
 		<xs:complexType>
 			<xs:sequence>
 				<xs:element ref="locationGeometry"/>
@@ -162,6 +426,11 @@ more information on http://www.gnu.org/licenses/lgpl.html
 		</xs:complexType>
 	</xs:element>
 	<xs:element name="locationGeometry">
+		<xs:annotation>
+			<xs:documentation>
+				GML representation of a location.  Can be either a point or polygon.
+			</xs:documentation>
+		</xs:annotation>
 		<xs:complexType>
 			<xs:choice>
 				<xs:element ref="gml:Point"/>
@@ -169,17 +438,41 @@ more information on http://www.gnu.org/licenses/lgpl.html
 			</xs:choice>
 		</xs:complexType>
 	</xs:element>
-	<xs:element name="locationType" type="xs:string"/>
-	<xs:element name="locationPrecision" type="xs:string"/>
-	<xs:element name="locationComment" type="xs:string"/>
+	<xs:element name="locationType" type="normalTridasLocationType"/>	
+	<xs:element name="locationPrecision" type="xs:string">
+		<xs:annotation>
+			<xs:documentation>
+				Stores potential difference; number of meters difference, so 0 is exact
+			</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="locationComment" type="xs:string">
+		<xs:annotation>
+			<xs:documentation>
+				Additional information about the location, for example, point taken 
+				from center or corner of area, which corner
+			</xs:documentation>
+		</xs:annotation>
+	</xs:element>
 	<!-- file -->
 	<xs:element name="file">
+		<xs:annotation>
+			<xs:documentation>
+				Filename of a file associated with this entity
+			</xs:documentation>
+		</xs:annotation>
 		<xs:complexType>
 			<xs:attribute ref="xlink:href" use="required"/>
 		</xs:complexType>
 	</xs:element>
 	<!-- generic field -->
 	<xs:element name="genericField">
+		<xs:annotation>
+			<xs:documentation>
+				Generic field for storing key/value pairs for data not currently supported
+				in the TRiDaS standard
+			</xs:documentation>
+		</xs:annotation>
 		<xs:complexType>
 			<xs:simpleContent>
 				<xs:extension base="xs:string">
@@ -205,27 +498,36 @@ more information on http://www.gnu.org/licenses/lgpl.html
 %		PROJECT
 %%%%%%%%%%%%%% -->
 	<xs:element name="project">
+		<xs:annotation>
+			<xs:documentation>A project is defined by a laboratory and encompasses dendrochronological 
+				research of a particular object or group of objects.  Examples include: the dating of 
+				a building; the research of forest dynamics in a stand of living trees; the dating of 
+				all Rembrandt paintings in a museum. What is considered a ``project'' is up to the 
+				laboratory performing the research. It could be the dating of a group of objects, 
+				but the laboratory can also decide to define a separate project for each object. 
+				Therefore, a project can have one or more objects associated with it.</xs:documentation>
+		</xs:annotation>		
 		<xs:complexType>
-			<xs:sequence>
-				<xs:element ref="title"/>
-				<xs:element ref="identifier" minOccurs="0"/>
-				<xs:element ref="createdTimestamp" minOccurs="0"/>
-				<xs:element ref="lastModifiedTimestamp" minOccurs="0"/>
-				<xs:element ref="type" maxOccurs="unbounded"/>
-				<xs:element ref="description" minOccurs="0"/>
-				<xs:element ref="file" minOccurs="0" maxOccurs="unbounded"/>
-				<xs:element ref="laboratory" maxOccurs="unbounded"/>
-				<xs:element ref="category"/>
-				<xs:element ref="investigator"/>
-				<xs:element ref="period"/>
-				<xs:element ref="requestDate" minOccurs="0"/>
-				<xs:element ref="commissioner" minOccurs="0"/>
-				<xs:element ref="reference" minOccurs="0" maxOccurs="unbounded"/>
-				<xs:element ref="research" minOccurs="0" maxOccurs="unbounded"/>
-				<xs:element ref="genericField" minOccurs="0" maxOccurs="unbounded"/>
-				<xs:element ref="object" minOccurs="0" maxOccurs="unbounded"/>
-				<xs:element ref="derivedSeries" minOccurs="0" maxOccurs="unbounded"/>
-			</xs:sequence>
+			<xs:complexContent>
+				<xs:extension base="tridasEntity">
+					<xs:sequence>
+						<xs:element ref="type" maxOccurs="unbounded"/>
+						<xs:element ref="description" minOccurs="0"/>
+						<xs:element ref="file" minOccurs="0" maxOccurs="unbounded"/>
+						<xs:element ref="laboratory" maxOccurs="unbounded"/>
+						<xs:element ref="category"/>
+						<xs:element ref="investigator"/>
+						<xs:element ref="period"/>
+						<xs:element ref="requestDate" minOccurs="0"/>
+						<xs:element ref="commissioner" minOccurs="0"/>
+						<xs:element ref="reference" minOccurs="0" maxOccurs="unbounded"/>
+						<xs:element ref="research" minOccurs="0" maxOccurs="unbounded"/>
+						<xs:element ref="genericField" minOccurs="0" maxOccurs="unbounded"/>
+						<xs:element ref="object" minOccurs="0" maxOccurs="unbounded"/>
+						<xs:element ref="derivedSeries" minOccurs="0" maxOccurs="unbounded"/>
+					</xs:sequence>
+				</xs:extension>
+			</xs:complexContent>
 		</xs:complexType>
 	</xs:element>
 	<!-- PROJECT.title (global type)-->
@@ -234,57 +536,118 @@ more information on http://www.gnu.org/licenses/lgpl.html
 	<!-- PROJECT.lastModifiedTimestamp (global type) -->
 	<!-- PROJECT.laboratory -->
 	<xs:element name="laboratory">
+		<xs:annotation>
+			<xs:documentation>
+				The dendrochronological research laboratory where this work was done
+			</xs:documentation>
+		</xs:annotation>
 		<xs:complexType>
 			<xs:sequence>
-				<xs:element ref="identifier" minOccurs="0"/>
-				<xs:element ref="name"/>
-				<xs:element ref="place"/>
-				<xs:element ref="country"/>
+				<xs:element ref="identifier" minOccurs="0">
+					<xs:annotation>
+						<xs:documentation>
+							Identifier for the laboratory
+						</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element name="name">
+					<xs:complexType>
+						<xs:annotation>
+							<xs:documentation>
+								Name of the laboratory
+							</xs:documentation>
+						</xs:annotation>			
+						<xs:simpleContent>
+							<xs:extension base="xs:string">
+								<xs:attribute name="acronym" use="optional"/>
+							</xs:extension>
+						</xs:simpleContent>
+					</xs:complexType>
+				</xs:element>			
+				<xs:element name="place" type="xs:string">
+					<xs:annotation>
+						<xs:documentation>
+							Town or city where the laboratory is located
+						</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element name="country" type="xs:string">
+					<xs:annotation>
+						<xs:documentation>
+							Country where the laboratory is located
+						</xs:documentation>
+					</xs:annotation>
+				</xs:element>		
 			</xs:sequence>
 		</xs:complexType>
 	</xs:element>
-	<xs:element name="name">
-		<xs:complexType>
-			<xs:simpleContent>
-				<xs:extension base="xs:string">
-					<xs:attribute name="acronym" use="optional"/>
-				</xs:extension>
-			</xs:simpleContent>
-		</xs:complexType>
-	</xs:element>
-	<xs:element name="place" type="xs:string"/>
-	<xs:element name="country" type="xs:string"/>
 	<!-- PROJECT.type (global type) -->
 	<!-- PROJECT.category -->
 	<xs:element name="category">
+		<xs:annotation>
+			<xs:documentation>
+				Category of research this project falls into.  Preferably from a controlled
+				vocabulary.
+			</xs:documentation>
+		</xs:annotation>
 		<xs:complexType>
 			<xs:complexContent>
 				<xs:extension base="controlledVoc">
-					<xs:attribute name="normalTridas">
-						<xs:simpleType>
-							<xs:restriction base="xs:string">
-								<xs:enumeration value=""/>
-							</xs:restriction>
-						</xs:simpleType>
-					</xs:attribute>
+					<xs:attribute name="normalTridas" type="normalTridasCategory"/>
 				</xs:extension>
 			</xs:complexContent>
 		</xs:complexType>
 	</xs:element>
 	<!-- PROJECT.investigator -->
-	<xs:element name="investigator" type="xs:string"/>
+	<xs:element name="investigator" type="xs:string">
+		<xs:annotation>
+			<xs:documentation>
+				Principal investigator of this project
+			</xs:documentation>
+		</xs:annotation>
+	</xs:element>
 	<!-- PROJECT.period -->
-	<xs:element name="period" type="xs:string"/>
+	<xs:element name="period" type="xs:string">
+		<xs:annotation>
+			<xs:documentation>
+				When the dendrochronological project took place.  Could consist of a 
+				start- and end-date.  If unknown it should be estimated.
+			</xs:documentation>
+		</xs:annotation>
+	</xs:element>
 	<!-- PROJECT.description (global type) -->
 	<!-- PROJECT.requestDate -->
-	<xs:element name="requestDate" type="date"/>
+	<xs:element name="requestDate" type="date">
+		<xs:annotation>
+			<xs:documentation>
+				Date of the request for dendrochronology.  If unknown it should be estimated
+			</xs:documentation>
+		</xs:annotation>
+	</xs:element>
 	<!-- PROJECT.commissioner -->
-	<xs:element name="commissioner" type="xs:string"/>
+	<xs:element name="commissioner" type="xs:string">
+		<xs:annotation>
+			<xs:documentation>
+				The person/organisation who commissioned the project
+			</xs:documentation>
+		</xs:annotation>
+	</xs:element>
 	<!-- PROJECT.reference -->
-	<xs:element name="reference" type="xs:string"/>
+	<xs:element name="reference" type="xs:string">
+		<xs:annotation>
+			<xs:documentation>
+				Citations of publications relating to this project
+			</xs:documentation>
+		</xs:annotation>
+	</xs:element>
 	<!-- PROJECT.file (global type) -->
 	<!-- PROJECT.research -->
 	<xs:element name="research">
+		<xs:annotation>
+			<xs:documentation>
+				National/International system in which the research project is registered
+			</xs:documentation>
+		</xs:annotation>
 		<xs:complexType>
 			<xs:sequence>
 				<xs:element ref="identifier"/>
@@ -298,24 +661,39 @@ more information on http://www.gnu.org/licenses/lgpl.html
 %		OBJECT
 %%%%%%%%%%%%%%-->
 	<xs:element name="object">
+		<xs:annotation>
+			<xs:documentation>
+				An object is the item to be investigated.  Examples include: violin; excavation site; 
+				painting on a wooden panel; water well; church; carving; ship; forest. An object could 
+				also be more specific, for example: mast of a ship; roof of a church. Depending on the 
+				object type various descriptions are made possible. An object can have one or more 
+				elements and can also refer to another (sub) object.  For instance a single file 
+				may contain three objects: an archaeological site object, within which there is a 
+				building object, within which there is a beam object.  The list of possible object 
+				types is extensible and is thus flexible enough to incorporate the diversity of data 
+				required by the dendro community.  Only information that is essential for 
+				dendrochronological research is recorded here. Other related data may be provided in the 
+				form of a link to an external database such as a museum catalogue. 
+			</xs:documentation>
+		</xs:annotation>
 		<xs:complexType>
-			<xs:sequence>
-				<xs:element ref="title"/>
-				<xs:element ref="identifier" minOccurs="0"/>
-				<xs:element ref="createdTimestamp" minOccurs="0"/>
-				<xs:element ref="lastModifiedTimestamp" minOccurs="0"/>
-				<xs:element ref="type"/>
-				<xs:element ref="description" minOccurs="0"/>
-				<xs:element ref="linkSeries" minOccurs="0" maxOccurs="1"/>				
-				<xs:element ref="file" minOccurs="0" maxOccurs="unbounded"/>
-				<xs:element ref="creator" minOccurs="0"/>
-				<xs:element ref="owner" minOccurs="0"/>
-				<xs:element ref="coverage" minOccurs="0"/>
-				<xs:element ref="location" minOccurs="0"/>
-				<xs:element ref="genericField" minOccurs="0" maxOccurs="unbounded"/>
-				<xs:element ref="object" minOccurs="0" maxOccurs="unbounded"/>
-				<xs:element ref="element" minOccurs="0" maxOccurs="unbounded"/>
-			</xs:sequence>
+			<xs:complexContent>
+				<xs:extension base="tridasEntity">
+					<xs:sequence>
+						<xs:element ref="type"/>
+						<xs:element ref="description" minOccurs="0"/>
+						<xs:element ref="linkSeries" minOccurs="0" maxOccurs="1"/>
+						<xs:element ref="file" minOccurs="0" maxOccurs="unbounded"/>
+						<xs:element ref="creator" minOccurs="0"/>			
+						<xs:element ref="owner" minOccurs="0"/>		
+						<xs:element ref="coverage" minOccurs="0"/>						
+						<xs:element ref="location" minOccurs="0"/>
+						<xs:element ref="genericField" minOccurs="0" maxOccurs="unbounded"/>
+						<xs:element ref="object" minOccurs="0" maxOccurs="unbounded"/>
+						<xs:element ref="element" minOccurs="0" maxOccurs="unbounded"/>
+					</xs:sequence>
+				</xs:extension>
+			</xs:complexContent>
 		</xs:complexType>
 	</xs:element>
 	<!-- OBJECT.title (global type) -->
@@ -327,11 +705,28 @@ more information on http://www.gnu.org/licenses/lgpl.html
 	<!-- OBJECT.linkSeries (global type) -->
 	<!-- OBJECT.file (global type) -->
 	<!-- OBJECT.creator -->
-	<xs:element name="creator" type="xs:string"/>
+	<xs:element name="creator" type="xs:string">
+		<xs:annotation>
+			<xs:documentation>
+				Name of creator, place of the workshop/wharf etc
+			</xs:documentation>
+		</xs:annotation>
+	</xs:element>
 	<!-- OBJECT.owner -->
-	<xs:element name="owner" type="xs:string"/>
+	<xs:element name="owner" type="xs:string">
+		<xs:annotation>
+			<xs:documentation>
+				Name of the owner of the physical object
+			</xs:documentation>
+		</xs:annotation>
+	</xs:element>
 	<!-- OBJECT.coverage -->
 	<xs:element name="coverage">
+		<xs:annotation>
+			<xs:documentation>
+				Details on the time period this object covers
+			</xs:documentation>
+		</xs:annotation>		
 		<xs:complexType>
 			<xs:sequence>
 				<xs:element ref="coverageTemporal"/>
@@ -339,8 +734,23 @@ more information on http://www.gnu.org/licenses/lgpl.html
 			</xs:sequence>
 		</xs:complexType>
 	</xs:element>
-	<xs:element name="coverageTemporal" type="xs:string"/>
-	<xs:element name="coverageTemporalFoundation" type="xs:string"/>
+	<xs:element name="coverageTemporal" type="xs:string">
+		<xs:annotation>
+			<xs:documentation>
+				If the date is already known in more or less detail: historical period 
+				(broad). Equivalent to Dublin Core term 'temporal'. 
+			</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="coverageTemporalFoundation" type="xs:string">
+			<xs:annotation>
+				<xs:documentation>
+					Method of dating support (e.g. archive sources, inscriptions, 
+					stratigraphic context, associated finds, typology, stylistic aspects, 
+					carpenter marks, radiocarbon, OSL, other methods)
+				</xs:documentation>
+			</xs:annotation>
+	</xs:element>
 	<!-- OBJECT.location (global type) -->
 	<!-- OBJECT.genericField (global type) -->
 	<!--
@@ -348,30 +758,41 @@ more information on http://www.gnu.org/licenses/lgpl.html
 %		ELEMENT
 %%%%%%%%%%%%%%-->
 	<xs:element name="element">
+		<xs:annotation>
+			<xs:documentation>
+				An element is a piece of wood originating from a single tree. Examples include: 
+				one plank of a water well; a single wooden panel in a painting; the left-hand back 
+				plate of a violin; one beam in a roof; a tree trunk preserved in the soil; a 
+				living tree. The element is a specific part of exactly one object or sub object.  
+				An object will often consist of more than one element, e.g., when dealing with the 
+				staves (elements) of a barrel (object).  One or more samples can be taken from an 
+				element and an element may be dated using one or more derivedSeries.
+			</xs:documentation>
+		</xs:annotation>
 		<xs:complexType>
-			<xs:sequence>
-				<xs:element ref="title"/>
-				<xs:element ref="identifier" minOccurs="0"/>
-				<xs:element ref="createdTimestamp" minOccurs="0"/>
-				<xs:element ref="lastModifiedTimestamp" minOccurs="0"/>
-				<xs:element ref="type" minOccurs="0"/>
-				<xs:element ref="description" minOccurs="0"/>
-				<xs:element ref="linkSeries" minOccurs="0" maxOccurs="1"/>		
-				<xs:element ref="file" minOccurs="0" maxOccurs="unbounded"/>
-				<xs:element ref="taxon"/>
-				<xs:element ref="shape" minOccurs="0"/>
-				<xs:element ref="dimensions" minOccurs="0"/>
-				<xs:element ref="authenticity" minOccurs="0"/>
-				<xs:element ref="location" minOccurs="0"/>
-				<xs:element ref="processing" minOccurs="0"/>
-				<xs:element ref="marks" minOccurs="0"/>
-				<xs:element ref="altitude" minOccurs="0"/>
-				<xs:element ref="slope" minOccurs="0"/>
-				<xs:element ref="soil" minOccurs="0"/>
-				<xs:element ref="bedrock" minOccurs="0"/>
-				<xs:element ref="genericField" minOccurs="0" maxOccurs="unbounded"/>
-				<xs:element ref="sample" minOccurs="0" maxOccurs="unbounded"/>
-			</xs:sequence>
+			<xs:complexContent>
+				<xs:extension base="tridasEntity">
+					<xs:sequence>
+						<xs:element ref="type" minOccurs="0"/>
+						<xs:element ref="description" minOccurs="0"/>
+						<xs:element ref="linkSeries" minOccurs="0" maxOccurs="1"/>		
+						<xs:element ref="file" minOccurs="0" maxOccurs="unbounded"/>
+						<xs:element ref="taxon"/>
+						<xs:element ref="shape" minOccurs="0"/>
+						<xs:element ref="dimensions" minOccurs="0"/>
+						<xs:element ref="authenticity" minOccurs="0"/>
+						<xs:element ref="location" minOccurs="0"/>
+						<xs:element ref="processing" minOccurs="0"/>
+						<xs:element ref="marks" minOccurs="0"/>
+						<xs:element ref="altitude" minOccurs="0"/>
+						<xs:element ref="slope" minOccurs="0"/>
+						<xs:element ref="soil" minOccurs="0"/>
+						<xs:element ref="bedrock" minOccurs="0"/>
+						<xs:element ref="genericField" minOccurs="0" maxOccurs="unbounded"/>
+						<xs:element ref="sample" minOccurs="0" maxOccurs="unbounded"/>
+					</xs:sequence>
+				</xs:extension>
+			</xs:complexContent>
 		</xs:complexType>
 	</xs:element>
 	<!-- ELEMENT.title (global type) -->
@@ -382,39 +803,31 @@ more information on http://www.gnu.org/licenses/lgpl.html
 	<!-- ELEMENT.linkSeries (global type) -->
 	<!-- ELEMENT.file (global type) -->
 	<!-- ELEMENT.taxon -->
-	<xs:element name="taxon">
-		<xs:complexType>
-			<xs:complexContent>
-				<xs:extension base="controlledVoc">
-					<xs:attribute name="normalTridas">
-						<xs:simpleType>
-							<xs:restriction base="xs:string">
-								<xs:enumeration value=""/>
-							</xs:restriction>
-						</xs:simpleType>
-					</xs:attribute>
-				</xs:extension>
-			</xs:complexContent>
-		</xs:complexType>
+	<xs:element name="taxon" type="controlledVoc">
+		<xs:annotation>
+			<xs:documentation>
+				The most detailed taxonomic name known for this element (species, genus, family etc).
+				Preferably from the Catalogue of Life controlled vocabulary
+			</xs:documentation>
+		</xs:annotation>
 	</xs:element>
 	<!-- ELEMENT.shape -->
 	<xs:element name="shape">
 		<xs:complexType>
 			<xs:complexContent>
 				<xs:extension base="controlledVoc">
-					<xs:attribute name="normalTridas">
-						<xs:simpleType>
-							<xs:restriction base="xs:string">
-								<xs:enumeration value=""/>
-							</xs:restriction>
-						</xs:simpleType>
-					</xs:attribute>
+					<xs:attribute name="normalTridas" type="normalTridasShape"/>
 				</xs:extension>
 			</xs:complexContent>
 		</xs:complexType>
-	</xs:element>
+	</xs:element>	
 	<!-- ELEMENT.dimensions -->
 	<xs:element name="dimensions">
+		<xs:annotation>
+			<xs:documentation>
+				Physical dimensions of this element, either diameter and height, or height, width and depth.
+			</xs:documentation>
+		</xs:annotation>
 		<xs:complexType>
 			<xs:sequence>
 				<xs:element ref="unit"/>
@@ -433,38 +846,110 @@ more information on http://www.gnu.org/licenses/lgpl.html
 		</xs:complexType>
 	</xs:element>
 	<!-- ELEMENT.authenticity -->
-	<xs:element name="authenticity" type="xs:string"/>
+	<xs:element name="authenticity" type="xs:string">
+		<xs:annotation>
+			<xs:documentation>
+				Whether this element is original, a repair or later addition etc.
+			</xs:documentation>
+		</xs:annotation>
+	</xs:element>
 	<!-- ELEMENT.location (global type) -->
 	<!-- ELEMENT.description (global type) -->
 	<!-- ELEMENT.processing -->
-	<xs:element name="processing" type="xs:string"/>
+	<xs:element name="processing" type="xs:string">
+		<xs:annotation>
+			<xs:documentation>
+				Processing (carved, sawn etc.) rafting marks etc
+			</xs:documentation>
+		</xs:annotation>
+	</xs:element>
 	<!-- ELEMENT.marks -->
-	<xs:element name="marks" type="xs:string"/>
+	<xs:element name="marks" type="xs:string">
+		<xs:annotation>
+			<xs:documentation>
+				Carpenter marks, inscriptions etc
+			</xs:documentation>
+		</xs:annotation>
+	</xs:element>
 	<!-- ELEMENT.altitude -->
-	<xs:element name="altitude" type="xs:double"/>
+	<xs:element name="altitude" type="xs:double">
+		<xs:annotation>
+			<xs:documentation>
+				Altitude in metres if this element is standing tree in situ
+			</xs:documentation>
+		</xs:annotation>
+	</xs:element>
 	<!-- ELEMENT.slope -->
 	<xs:element name="slope">
+		<xs:annotation>
+			<xs:documentation>
+				Only relevant if this element is a standing tree. Contains details 
+				about the slope this tree was growing on.
+			</xs:documentation>
+		</xs:annotation>
 		<xs:complexType>
 			<xs:sequence>
-				<xs:element name="angle" type="xs:integer" minOccurs="0"/>
-				<xs:element name="azimuth" type="xs:integer" minOccurs="0"/>
+				<xs:element name="angle" type="xs:integer" minOccurs="0">
+					<xs:annotation>
+						<xs:documentation>
+							Angle of slope from horizontal in degrees
+						</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element name="azimuth" type="xs:integer" minOccurs="0">
+					<xs:annotation>
+						<xs:documentation>
+							Angle in degrees from north along which the slope lies
+						</xs:documentation>
+					</xs:annotation>
+				</xs:element>
 			</xs:sequence>
 		</xs:complexType>
 	</xs:element>
 	<!-- ELEMENT.soil -->
 	<xs:element name="soil">
+		<xs:annotation>
+			<xs:documentation>
+				Only relevant if this element is a standing tree.  Contains details 
+				of the soil the tree was growing in.
+			</xs:documentation>
+		</xs:annotation>
 		<xs:complexType>
 			<xs:sequence>
-				<xs:element name="description" type="xs:string" minOccurs="0"/>
-				<xs:element name="depth" type="xs:double" minOccurs="0"/>
+				<xs:element name="description" type="xs:string" minOccurs="0">
+					<xs:annotation>
+						<xs:documentation>
+							General description of the soil type
+						</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element name="depth" type="xs:double" minOccurs="0">
+					<xs:annotation>
+						<xs:documentation>
+							Depth of soil in centimetres
+						</xs:documentation>
+					</xs:annotation>
+				</xs:element>
 			</xs:sequence>
 		</xs:complexType>
 	</xs:element>
 	<!-- ELEMENT.bedrock -->
 	<xs:element name="bedrock">
+		<xs:annotation>
+			<xs:documentation>
+				Only relevant if this element is a standing tree.  Contains details 
+				of the bedrock below where the tree was growing.
+			</xs:documentation>
+		</xs:annotation>
 		<xs:complexType>
 			<xs:sequence>
-				<xs:element name="description" type="xs:string" minOccurs="0"/>
+				<xs:element name="description" type="xs:string" minOccurs="0">
+					<xs:annotation>
+						<xs:documentation>
+							General description of the underlying bedrock
+						</xs:documentation>
+					</xs:annotation>
+				</xs:element>
 			</xs:sequence>
 		</xs:complexType>
 	</xs:element>
@@ -474,25 +959,36 @@ more information on http://www.gnu.org/licenses/lgpl.html
 %		SAMPLE
 %%%%%%%%%%%%%%-->
 	<xs:element name="sample">
+		<xs:annotation>
+			<xs:documentation>
+				A sample is a physical specimen or non-physical representation of an element. 
+				Examples include: core from a living tree; core from a rafter in a church roof; 
+				piece of charcoal from an archaeological trench; slice from a pile used in a 
+				pile foundation; wax imprint of the outer end of a plank; photo of a back plate 
+				of a string instrument. Note that a sample always exists and that it can either 
+				be physical (e.g. a core) or representative (e.g. a picture). A sample is taken 
+				from exactly one element and can be represented by one or more radii.
+			</xs:documentation>
+		</xs:annotation>
 		<xs:complexType>
-			<xs:sequence>
-				<xs:element ref="title"/>
-				<xs:element ref="identifier" minOccurs="0"/>
-				<xs:element ref="createdTimestamp" minOccurs="0"/>
-				<xs:element ref="lastModifiedTimestamp" minOccurs="0"/>
-				<xs:element ref="type"/>
-				<xs:element ref="description" minOccurs="0"/>
-				<xs:element ref="file" minOccurs="0" maxOccurs="unbounded"/>
-				<xs:element ref="samplingDate" minOccurs="0"/>
-				<xs:element ref="position" minOccurs="0"/>
-				<xs:element ref="state" minOccurs="0"/>
-				<xs:element ref="knots" minOccurs="0"/>
-				<xs:element ref="genericField" minOccurs="0" maxOccurs="unbounded"/>
-				<xs:choice>
-					<xs:element ref="radius" minOccurs="0"/>
-					<xs:element ref="radiusPlaceholder" minOccurs="0"/>
-				</xs:choice>
-			</xs:sequence>
+			<xs:complexContent>
+				<xs:extension base="tridasEntity">
+					<xs:sequence>
+						<xs:element ref="type"/>
+						<xs:element ref="description" minOccurs="0"/>
+						<xs:element ref="file" minOccurs="0" maxOccurs="unbounded"/>
+						<xs:element ref="samplingDate" minOccurs="0"/>
+						<xs:element ref="position" minOccurs="0"/>
+						<xs:element ref="state" minOccurs="0"/>
+						<xs:element ref="knots" minOccurs="0"/>
+						<xs:element ref="genericField" minOccurs="0" maxOccurs="unbounded"/>
+						<xs:choice>
+							<xs:element ref="radius" minOccurs="0" maxOccurs="unbounded"/>
+							<xs:element ref="radiusPlaceholder" minOccurs="0"/>
+						</xs:choice>
+					</xs:sequence>
+				</xs:extension>
+			</xs:complexContent>
 		</xs:complexType>
 	</xs:element>
 	<!-- SAMPLE.title (global type) -->
@@ -503,13 +999,38 @@ more information on http://www.gnu.org/licenses/lgpl.html
 	<!-- SAMPLE.description (global type) -->
 	<!-- SAMPLE.file (global type) -->
 	<!-- SAMPLE.samplingDate -->
-	<xs:element name="samplingDate" type="date"/>
+	<xs:element name="samplingDate" type="date">
+		<xs:annotation>
+			<xs:documentation>
+				Date the sample was taken
+			</xs:documentation>
+		</xs:annotation>
+	</xs:element>
 	<!-- SAMPLE.position -->
-	<xs:element name="position" type="xs:string"/>
+	<xs:element name="position" type="xs:string">
+		<xs:annotation>
+			<xs:documentation>
+				Description of the position in the element where this sample was taken from
+			</xs:documentation>
+		</xs:annotation>
+	</xs:element>
 	<!-- SAMPLE.state -->
-	<xs:element name="state" type="xs:string"/>
+	<xs:element name="state" type="xs:string">
+		<xs:annotation>
+			<xs:documentation>
+				State of the material (dry/wet/conserved/burned, woodworm, rot, cracks) things 
+				that indicate the quality of the measurements.
+			</xs:documentation>
+		</xs:annotation>
+	</xs:element>
 	<!-- SAMPLE.knots -->
-	<xs:element name="knots" type="xs:boolean"/>
+	<xs:element name="knots" type="xs:boolean">
+		<xs:annotation>
+			<xs:documentation>
+				Are knots present in the sample?
+			</xs:documentation>
+		</xs:annotation>
+	</xs:element>
 	<!-- SAMPLE.genericField (global type) -->
 
 <!-- 
@@ -517,6 +1038,13 @@ more information on http://www.gnu.org/licenses/lgpl.html
 	%		PITHANDSAPWOODINFO 
 	%%%%%%%%%%%%%%%%%%%%%%%%%%-->
 	<xs:element name="pithAndSapwoodInfo">
+		<xs:annotation>
+			<xs:documentation>
+				Details of the pith and sapwood rings.  This is included under the radius or
+				measurementSeries entities.  If present in both, the measurementSeries details
+				supercede those of the radius.
+			</xs:documentation>
+		</xs:annotation>
 		<xs:complexType>
 			<xs:sequence>
 				<xs:element ref="pith"/>
@@ -526,47 +1054,24 @@ more information on http://www.gnu.org/licenses/lgpl.html
 			</xs:sequence>
 		</xs:complexType>
 	</xs:element>
-	
-	
-	<!-- 
-%%%%%%%%%%%%%%
-%		RADIUS 
-%%%%%%%%%%%%%%-->
-	<xs:element name="radius">
-		<xs:complexType>
-			<xs:sequence>
-				<xs:element ref="title"/>
-				<xs:element ref="identifier" minOccurs="0"/>
-				<xs:element ref="createdTimestamp" minOccurs="0"/>
-				<xs:element ref="lastModifiedTimestamp" minOccurs="0"/>
-				<xs:element ref="pithAndSapwoodInfo" minOccurs="0" maxOccurs="1"/>
-				<xs:element ref="azimuth" minOccurs="0"/>
-				<xs:element ref="genericField" minOccurs="0" maxOccurs="unbounded"/>
-				<xs:element ref="measurementSeries" minOccurs="0" maxOccurs="unbounded"/>
-			</xs:sequence>
-		</xs:complexType>
-	</xs:element>
-	<!-- RADIUS.title (global type) -->
-	<!-- RADIUS.identifier (global type) -->
-	<!-- RADIUS.createdTimestamp (global type) -->
-	<!-- RADIUS.lastModifiedTimestamp (global type) -->
-	<!-- RADIUS.pith -->
+	<!-- PITHANDSAPWOODINFO.pith-->
 	<xs:element name="pith">
+		<xs:annotation>
+			<xs:documentation>
+				Whether the pith is present or absent
+			</xs:documentation>
+		</xs:annotation>
 		<xs:complexType>
-			<xs:attribute name="presence" use="required">
-				<xs:simpleType>
-					<xs:restriction base="xs:string">
-						<xs:enumeration value="present"/>
-						<xs:enumeration value="absent"/>
-					</xs:restriction>
-				</xs:simpleType>
-			</xs:attribute>
+			<xs:attribute name="presence" use="required" type="presenceAbsence"/>
 		</xs:complexType>
 	</xs:element>
-	<!-- RADIUS.azimuth -->
-	<xs:element name="azimuth" type="xs:decimal"/>
-	<!-- RADIUS.heartwood -->
+	<!-- PITHANDSAPWOODINFO.heartwood -->
 	<xs:element name="heartwood">
+		<xs:annotation>
+			<xs:documentation>
+				Whether the heartwood is present or absent
+			</xs:documentation>
+		</xs:annotation>
 		<xs:complexType>
 			<xs:sequence>
 				<xs:element ref="missingHeartwoodRingsToPith" minOccurs="0"/>
@@ -575,10 +1080,28 @@ more information on http://www.gnu.org/licenses/lgpl.html
 			<xs:attribute name="presence" use="required"/>
 		</xs:complexType>
 	</xs:element>
-	<xs:element name="missingHeartwoodRingsToPithFoundation" type="xs:string"/>
-	<xs:element name="missingHeartwoodRingsToPith" type="xs:string"/>
-	<!-- RADIUS.sapwood -->
+	<xs:element name="missingHeartwoodRingsToPith" type="xs:string">
+		<xs:annotation>
+			<xs:documentation>
+				Estimated number of missing heartwood rings to the pith
+			</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="missingHeartwoodRingsToPithFoundation" type="xs:string">
+		<xs:annotation>
+			<xs:documentation>
+				Description of the way the estimation of how many heartwood rings 
+				are missing was made and what the certainty is.
+			</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<!-- PITHANDSAPWOODINFO.sapwood -->
 	<xs:element name="sapwood">
+		<xs:annotation>
+			<xs:documentation>
+				Details about the sapwood
+			</xs:documentation>
+		</xs:annotation>
 		<xs:complexType>
 			<xs:sequence>
 				<xs:element ref="nrOfSapwoodRings" minOccurs="0"/>
@@ -586,39 +1109,105 @@ more information on http://www.gnu.org/licenses/lgpl.html
 				<xs:element ref="missingSapwoodRingsToBark" minOccurs="0"/>
 				<xs:element ref="missingSapwoodRingsToBarkFoundation" minOccurs="0"/>
 			</xs:sequence>
-			<xs:attribute name="presence" use="required">
-				<xs:simpleType>
-					<xs:restriction base="xs:string">
-						<xs:enumeration value="unknown"/>
-						<xs:enumeration value="not applicable"/>
-						<xs:enumeration value="absent"/>
-						<xs:enumeration value="complete"/>
-						<xs:enumeration value="incomplete"/>
-					</xs:restriction>
-				</xs:simpleType>
+			<xs:attribute name="presence" use="required" type="complexPresenceAbsence">
+				<xs:annotation>
+					<xs:documentation>
+						Whether the sapwood is present or not
+					</xs:documentation>
+				</xs:annotation>
 			</xs:attribute>
 		</xs:complexType>
 	</xs:element>
-	<xs:element name="nrOfSapwoodRings" type="xs:string"/>
-	<xs:element name="lastRingUnderBark" type="xs:string"/>
-	<xs:element name="missingSapwoodRingsToBarkFoundation" type="xs:string"/>
-	<xs:element name="missingSapwoodRingsToBark" type="xs:string"/>
-	<!-- RADIUS.bark -->
+	<xs:element name="nrOfSapwoodRings" type="xs:string">
+		<xs:annotation>
+			<xs:documentation>
+				Number of sapwood rings measured
+			</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="lastRingUnderBark" type="xs:string">
+		<xs:annotation>
+			<xs:documentation>
+				Information about the last rings under the bark. If the last ring is under 
+				the bark is present, include information about the completeness of this ring 
+				and/or season of felling. 
+			</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="missingSapwoodRingsToBark" type="xs:string">
+		<xs:annotation>
+			<xs:documentation>
+				Estimated number of missing sapwood rings to the bark
+			</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="missingSapwoodRingsToBarkFoundation" type="xs:string">
+		<xs:annotation>
+			<xs:documentation>
+				Description of the way the estimation of how many sapwood rings 
+				are missing was made and what the certainty is.				
+			</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<!-- PITHANDSAPWOODINFO.bark -->
 	<xs:element name="bark">
+		<xs:annotation>
+			<xs:documentation>
+				Bark is present or absent
+			</xs:documentation>
+		</xs:annotation>
 		<xs:complexType>
-			<xs:attribute name="presence" use="required">
-				<xs:simpleType>
-					<xs:restriction base="xs:string">
-						<xs:enumeration value="present"/>
-						<xs:enumeration value="absent"/>
-					</xs:restriction>
-				</xs:simpleType>
-			</xs:attribute>
+			<xs:attribute name="presence" use="required" type="presenceAbsence"/>
 		</xs:complexType>
+	</xs:element>
+	
+	<!-- 
+%%%%%%%%%%%%%%
+%		RADIUS 
+%%%%%%%%%%%%%%-->
+	<xs:element name="radius">
+		<xs:annotation>
+			<xs:documentation>
+				A radius is a line from pith to bark along which the measurements are taken. 
+				A radius is derived from exactly one sample. It can be measured more than once 
+				resulting in multiple measurementSeries.
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:complexContent>
+				<xs:extension base="tridasEntity">
+					<xs:sequence>
+						<xs:element ref="pithAndSapwoodInfo" minOccurs="0" maxOccurs="1"/>
+						<xs:element ref="azimuth" minOccurs="0"/>
+						<xs:element ref="genericField" minOccurs="0" maxOccurs="unbounded"/>
+						<xs:element ref="measurementSeries" minOccurs="0" maxOccurs="unbounded"/>
+					</xs:sequence>
+				</xs:extension>
+			</xs:complexContent>
+		</xs:complexType>
+	</xs:element>
+	<!-- RADIUS.title (global type) -->
+	<!-- RADIUS.identifier (global type) -->
+	<!-- RADIUS.createdTimestamp (global type) -->
+	<!-- RADIUS.lastModifiedTimestamp (global type) -->
+	<!-- RADIS.pithAndSapwoodInfo (global type) -->
+	<!-- RADIUS.azimuth -->
+	<xs:element name="azimuth" type="xs:decimal">
+		<xs:annotation>
+			<xs:documentation>
+				Angle in degrees from north along which this radius lies
+			</xs:documentation>
+		</xs:annotation>
 	</xs:element>
 	<!-- RADIUS.genericField (global type) -->
 	<!-- RADIUS-PLACEHOLDER -->
 	<xs:element name="radiusPlaceholder">
+		<xs:annotation>
+			<xs:documentation>
+				This entity is used instead of a standard 'radius' when radius details 
+				are not known.
+			</xs:documentation>
+		</xs:annotation>
 		<xs:complexType>
 			<xs:sequence>
 				<xs:element ref="measurementSeriesPlaceholder"/>
@@ -628,39 +1217,37 @@ more information on http://www.gnu.org/licenses/lgpl.html
 	<!--
 		%%%%%%%%%%%%%%
 		%        SERIES
-		%%%%%%%%%%%%%%-->
-	<xs:group name="interpretationType">
-		<xs:choice>
-			<xs:element ref="interpretation"/>
-			<xs:element ref="interpretationUnsolved"/>
-		</xs:choice>
-	</xs:group>
-	
+		%%%%%%%%%%%%%%-->	
 	<xs:complexType name="baseSeries" abstract="true">
-		<xs:sequence>
-			<xs:element ref="title"/>
-			<xs:element ref="identifier" minOccurs="0"/>
-			<xs:element ref="createdTimestamp" minOccurs="0"/>
-			<xs:element ref="lastModifiedTimestamp" minOccurs="0"/>
-			<xs:element ref="pithAndSapwoodInfo" minOccurs="0" maxOccurs="1"/>			
-			<xs:element ref="analyst" minOccurs="0"/>
-			<xs:element ref="dendrochronologist" minOccurs="0"/>
-			<xs:element ref="measuringMethod" minOccurs="0" maxOccurs="1"/>
-			<xs:element ref="type" minOccurs="0" maxOccurs="1"/>
-			<xs:element ref="linkSeries" minOccurs="0" maxOccurs="unbounded"/>
-			<xs:element ref="objective" minOccurs="0"/>
-			<xs:element ref="standardizingMethod" minOccurs="0"/>
-			<xs:element ref="author" minOccurs="0"/>
-			<xs:element ref="version" minOccurs="0"/>
-			<xs:element ref="comments" minOccurs="0"/>
-			<xs:element ref="usage" minOccurs="0"/>
-			<xs:element ref="usageComments" minOccurs="0" maxOccurs="unbounded"/>
-			<xs:group ref="interpretationType" minOccurs="0"/>
-			<xs:element ref="extent" minOccurs="0"/>
-			<xs:element ref="genericField" minOccurs="0" maxOccurs="unbounded"/>
-			<xs:element ref="values" minOccurs="0" maxOccurs="unbounded"/>
-		</xs:sequence>
-		<xs:attribute name="id" type="xs:ID"/>
+		<xs:annotation>
+			<xs:documentation>
+				A base type inherited by measurementSeries and derivedSeries.
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="tridasEntity">
+				<xs:sequence>
+					<xs:element ref="pithAndSapwoodInfo" minOccurs="0" maxOccurs="1"/>
+					<xs:element ref="analyst" minOccurs="0"/>
+					<xs:element ref="dendrochronologist" minOccurs="0"/>
+					<xs:element ref="measuringMethod" minOccurs="0" maxOccurs="1"/>
+					<xs:element ref="type" minOccurs="0" maxOccurs="1"/>
+					<xs:element ref="linkSeries" minOccurs="0" maxOccurs="unbounded"/>
+					<xs:element ref="objective" minOccurs="0"/>
+					<xs:element ref="standardizingMethod" minOccurs="0"/>
+					<xs:element ref="author" minOccurs="0"/>
+					<xs:element ref="version" minOccurs="0"/>
+					<xs:element ref="comments" minOccurs="0"/>
+					<xs:element ref="usage" minOccurs="0"/>
+					<xs:element ref="usageComments" minOccurs="0" maxOccurs="unbounded"/>
+					<xs:group ref="interpretationType" minOccurs="0"/>
+					<xs:element ref="extent" minOccurs="0"/>
+					<xs:element ref="genericField" minOccurs="0" maxOccurs="unbounded"/>
+					<xs:element ref="values" minOccurs="0" maxOccurs="unbounded"/>
+				</xs:sequence>
+				<xs:attribute name="id" type="xs:ID"/>
+			</xs:extension>
+		</xs:complexContent>
 	</xs:complexType>	
 		
 	<!--	
@@ -668,23 +1255,31 @@ more information on http://www.gnu.org/licenses/lgpl.html
 %		MEASUREMENTSERIES
 %%%%%%%%%%%%%%-->
 	<xs:element name="measurementSeries">
+		<xs:annotation>
+			<xs:documentation>
+				A measurementSeries is a series of direct, raw measurements along a radius. A 
+				single measurementSeries can be standardised or a collection of 
+				measurementSeries can be combined into a derivedSeries.  The measurements 
+				themselves are stored separately as values.
+			</xs:documentation>
+		</xs:annotation>
 		<xs:complexType>
 			<xs:complexContent>
 				<xs:restriction base="baseSeries">
 					<xs:sequence>
 						<xs:element ref="title"/>
-						<xs:element ref="identifier"/>
-						<xs:element ref="createdTimestamp"/>
-						<xs:element ref="lastModifiedTimestamp"/>
-						<xs:element ref="analyst"/>
-						<xs:element ref="dendrochronologist"/>
+						<xs:element ref="identifier" minOccurs="0"/>
+						<xs:element ref="createdTimestamp" minOccurs="0"/>
+						<xs:element ref="lastModifiedTimestamp" minOccurs="0"/>
+						<xs:element ref="analyst" minOccurs="0"/>
+						<xs:element ref="dendrochronologist" minOccurs="0"/>
 						<xs:element ref="measuringMethod" minOccurs="1"/>
-						<xs:element ref="comments"/>
-						<xs:element ref="usage"/>
-						<xs:element ref="usageComments"/>
-						<xs:group ref="interpretationType" />
-						<xs:element ref="genericField"/>
-						<xs:element ref="values"/>
+						<xs:element ref="comments" minOccurs="0"/>
+						<xs:element ref="usage" minOccurs="0"/>
+						<xs:element ref="usageComments" minOccurs="0" maxOccurs="unbounded"/>
+						<xs:group ref="interpretationType" minOccurs="0"/>
+						<xs:element ref="genericField" minOccurs="0" maxOccurs="unbounded"/>
+						<xs:element ref="values" minOccurs="0" maxOccurs="unbounded"/>
 					</xs:sequence>
 					<xs:attribute name="id" type="xs:ID"/>
 				</xs:restriction>
@@ -696,36 +1291,82 @@ more information on http://www.gnu.org/licenses/lgpl.html
 	<!-- MEASUREMENTSERIES.createdTimestamp (global type) -->
 	<!-- MEASUREMENTSERIES.lastModifiedTimestamp (global type) -->
 	<!-- MEASUREMENTSERIES.analyst -->
-	<xs:element name="analyst" type="xs:string"/>
+	<xs:element name="analyst" type="xs:string">
+		<xs:annotation>
+			<xs:documentation>
+				Name of the analyst that made the series
+			</xs:documentation>
+		</xs:annotation>
+	</xs:element>
 	<!-- MEASUREMENTSERIES.dendrochronologist -->
-	<xs:element name="dendrochronologist" type="xs:string"/>
+	<xs:element name="dendrochronologist" type="xs:string">
+		<xs:annotation>
+			<xs:documentation>
+				Name of the dendrochronologist that oversaw the analyst
+			</xs:documentation>
+		</xs:annotation>
+	</xs:element>
 	<!-- MEASUREMENTSERIES.measuringMethod -->
 	<xs:element name="measuringMethod">
+		<xs:annotation>
+			<xs:documentation>
+				Method that was used to measure this measurementSeries, preferably
+				from the TRiDaS controlled vocabulary.
+			</xs:documentation>
+		</xs:annotation>
 		<xs:complexType>
 			<xs:complexContent>
 				<xs:extension base="controlledVoc">
-					<xs:attribute name="normalTridas">
-						<xs:simpleType>
-							<xs:restriction base="xs:string">
-								<xs:enumeration value=""/>
-							</xs:restriction>
-						</xs:simpleType>
-					</xs:attribute>
+					<xs:attribute name="normalTridas" type="normalTridasMeasuringMethod"/>
 				</xs:extension>
 			</xs:complexContent>
 		</xs:complexType>
-	</xs:element>
-	<!-- MEASUREMENTSERIES.measuringDate -->
-	<xs:element name="measuringDate" type="date"/>
+	</xs:element>	
 	<!-- MEASUREMENTSERIES.comments -->
-	<xs:element name="comments" type="xs:string"/>
+	<xs:element name="comments" type="xs:string">
+		<xs:annotation>
+			<xs:documentation>
+				More information about the series
+			</xs:documentation>
+		</xs:annotation>
+	</xs:element>
 	<!-- MEASUREMENTSERIES.usage -->
-	<xs:element name="usage" type="xs:string"/>
+	<xs:element name="usage" type="xs:string">
+		<xs:annotation>
+			<xs:documentation>
+				How the series is used, for instance in which chronology
+			</xs:documentation>
+		</xs:annotation>
+	</xs:element>
 	<!-- MEASUREMENTSERIES.usageComments -->
-	<xs:element name="usageComments" type="xs:string"/>
+	<xs:element name="usageComments" type="xs:string">
+		<xs:annotation>
+			<xs:documentation>
+				Comments by later users on the quality of the series 
+			</xs:documentation>
+		</xs:annotation>
+	</xs:element>
 	<!-- MEASUREMENTSERIES.genericField (global type) -->
+	<!-- Interpretation Type -->
+	<xs:group name="interpretationType">
+		<xs:annotation>
+			<xs:documentation>
+				Contains either the 'interpretation' of the series or an 
+				'interpretationUnsolved' placeholder
+			</xs:documentation>
+		</xs:annotation>
+		<xs:choice>
+			<xs:element ref="interpretation"/>
+			<xs:element ref="interpretationUnsolved"/>
+		</xs:choice>
+	</xs:group>		
 	<!-- MEASUREMENTSERIES.interpretation -->
 	<xs:element name="interpretation">
+		<xs:annotation>
+			<xs:documentation>
+				Information interpreted from the series
+			</xs:documentation>
+		</xs:annotation>
 		<xs:complexType>
 			<xs:sequence>
 				<xs:element ref="firstYear" minOccurs="0"/>
@@ -739,14 +1380,31 @@ more information on http://www.gnu.org/licenses/lgpl.html
 		</xs:complexType>
 	</xs:element>
 	<xs:element name="datingReference">
+		<xs:annotation>
+			<xs:documentation>
+				Chronology used to interpret the series
+			</xs:documentation>
+		</xs:annotation>
 		<xs:complexType>
 			<xs:sequence>
 				<xs:element ref="linkSeries"/>
 			</xs:sequence>
 		</xs:complexType>
 	</xs:element>
-	<xs:element name="firstYear" type="year"/>
+	<xs:element name="firstYear" type="year">
+		<xs:annotation>
+			<xs:documentation>
+				Year of the first measured ring.  This is derived from the chronology that 
+				was used to date this series.  It is not to be confused with sproutYear.
+			</xs:documentation>
+		</xs:annotation>
+	</xs:element>
 	<xs:element name="statFoundation">
+		<xs:annotation>
+			<xs:documentation>
+				
+			</xs:documentation>
+		</xs:annotation>
 		<xs:complexType>
 			<xs:sequence>
 				<xs:element ref="statValue"/>
@@ -756,16 +1414,59 @@ more information on http://www.gnu.org/licenses/lgpl.html
 			</xs:sequence>
 		</xs:complexType>
 	</xs:element>
-	<xs:element name="statValue" type="xs:decimal"/>
-	<xs:element name="significanceLevel" type="xs:decimal"/>
-	<xs:element name="usedSoftware" type="xs:string"/>
-	<xs:element name="sproutYear" type="year"/>
-	<xs:element name="deathYear" type="year"/>
-	<xs:element name="provenance" type="xs:string"/>
+	<xs:element name="statValue" type="xs:decimal">
+		<xs:annotation>
+			<xs:documentation>
+				Statistical value used to support match with chronology
+			</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="significanceLevel" type="xs:decimal">
+		<xs:annotation>
+			<xs:documentation>
+				Significance of the statistical match with the chronology
+			</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="usedSoftware" type="xs:string">
+		<xs:annotation>
+			<xs:documentation>
+				Software used to perform the statistical match with the chronology
+			</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="sproutYear" type="year">
+		<xs:annotation>
+			<xs:documentation>
+				Estimated year that the tree sprouted
+			</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="deathYear" type="year">
+		<xs:annotation>
+			<xs:documentation>
+				Estimated year of death of the tree 
+			</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="provenance" type="xs:string">
+		<xs:annotation>
+			<xs:documentation>
+				Estimated provenance derived from the matching chronology
+			</xs:documentation>
+		</xs:annotation>
+	</xs:element>
 	<!-- MEASUREMENTSERIES.interpretationUnsolved -->
 	<xs:element name="interpretationUnsolved" type="xs:string"/>
 	<!-- MEASUREMENTSSERIES-PLACEHOLDER -->
 	<xs:element name="measurementSeriesPlaceholder">
+		<xs:annotation>
+			<xs:documentation>
+				If no measurementSeries information is known (e.g. if describing a 
+				derivedSeries where no measurementSeries data is available) this 
+				placeholder is used instead of a standard measurementSeries entity.
+			</xs:documentation>
+		</xs:annotation>
 		<xs:complexType>
 			<xs:attribute name="id" type="xs:ID" use="required"/>
 		</xs:complexType>
@@ -775,27 +1476,35 @@ more information on http://www.gnu.org/licenses/lgpl.html
 %		DERIVEDSERIES
 %%%%%%%%%%%%%% -->
 	<xs:element name="derivedSeries">
+		<xs:annotation>
+			<xs:documentation>
+				A derivedSeries is a calculated series of values and is a minor modification of the 
+				'v-series' concept proposed by Brewer et al (2009).  Examples include: index; average 
+				of a collection of measurementSeries such as a chronology. A derivedSeries is derived 
+				from one or more measurementSeries and has multiple values associated with it.
+			</xs:documentation>
+		</xs:annotation>
 		<xs:complexType>
 			<xs:complexContent>
 				<xs:restriction base="baseSeries">
 					<xs:sequence>
 						<xs:element ref="title"/>
-						<xs:element ref="identifier"/>
-						<xs:element ref="createdTimestamp"/>
-						<xs:element ref="lastModifiedTimestamp"/>
+						<xs:element ref="identifier" minOccurs="0"/>
+						<xs:element ref="createdTimestamp" minOccurs="0"/>
+						<xs:element ref="lastModifiedTimestamp" minOccurs="0"/>
 						<xs:element ref="type" minOccurs="1"/>
 						<xs:element ref="linkSeries" minOccurs="1" maxOccurs="unbounded"/>
-						<xs:element ref="objective"/>
-						<xs:element ref="standardizingMethod"/>
-						<xs:element ref="author"/>
-						<xs:element ref="version"/>
-						<xs:element ref="comments"/>
-						<xs:element ref="usage"/>
-						<xs:element ref="usageComments"/>
-						<xs:group ref="interpretationType"/>
-						<xs:element ref="extent"/>
-						<xs:element ref="genericField"/>
-						<xs:element ref="values"/>
+						<xs:element ref="objective" minOccurs="0"/>
+						<xs:element ref="standardizingMethod" minOccurs="0"/>
+						<xs:element ref="author" minOccurs="0"/>
+						<xs:element ref="version" minOccurs="0"/>
+						<xs:element ref="comments" minOccurs="0"/>
+						<xs:element ref="usage" minOccurs="0"/>
+						<xs:element ref="usageComments" minOccurs="0" maxOccurs="unbounded"/>
+						<xs:group ref="interpretationType" minOccurs="0"/>
+						<xs:element ref="extent" minOccurs="0"/>
+						<xs:element ref="genericField" minOccurs="0" maxOccurs="unbounded"/>
+						<xs:element ref="values" minOccurs="0" maxOccurs="unbounded"/>
 					</xs:sequence>
 					<xs:attribute name="id" type="xs:ID"/>
 				</xs:restriction>
@@ -809,16 +1518,38 @@ more information on http://www.gnu.org/licenses/lgpl.html
 	<!-- DERIVEDSERIES.lastModifiedTimestamp (global type) -->
 	<!-- DERIVEDSERIES.type (global type) -->
 	<!-- DERIVEDSERIES.objective -->
-	<xs:element name="objective" type="xs:string"/>
+	<xs:element name="objective" type="xs:string">
+		<xs:annotation>
+			<xs:documentation>
+				The reason/rationale why this series was made
+			</xs:documentation>
+		</xs:annotation>
+	</xs:element>
 	<!-- DERIVEDSERIES.standardizingMethod -->
-	<xs:element name="standardizingMethod" type="xs:string"/>
+	<xs:element name="standardizingMethod" type="xs:string">
+		<xs:annotation>
+			<xs:documentation>
+				Numerical method used to standardise the series
+			</xs:documentation>
+		</xs:annotation>
+	</xs:element>
 	<!-- DERIVEDSERIES.author -->
-	<xs:element name="author" type="xs:string"/>
+	<xs:element name="author" type="xs:string">
+		<xs:annotation>
+			<xs:documentation>
+				Name of the person that created this derivedSeries
+			</xs:documentation>
+		</xs:annotation>
+	</xs:element>
 	<!-- DERIVEDSERIES.version -->
-	<xs:element name="version" type="xs:string"/>
+	<xs:element name="version" type="xs:string">
+		<xs:annotation>
+			<xs:documentation>
+				Version number of this derivedSeries
+			</xs:documentation>
+		</xs:annotation>
+	</xs:element>
 	<!-- DERIVEDSERIES.linkSeries (global type) -->	
-	<!-- DERIVEDSERIES.derivationDate -->
-	<xs:element name="derivationDate" type="date"/>
 	<!-- DERIVEDSERIES.usedSoftware (defined at MEASUREMENTSERIES.interpretation) -->
 	<!-- DERIVEDSERIES.genericField (global type) -->
 	<!-- DERIVEDSERIES.interpretation (defined at MEASUREMENTSERIES) -->
@@ -828,19 +1559,20 @@ more information on http://www.gnu.org/licenses/lgpl.html
 	%		VALUES
 	%%%%%%%%%%%%%% -->
 	<xs:element name="values">
+		<xs:annotation>
+			<xs:documentation>
+				A value is the result of a single ring measurement. Examples include: total ring 
+				width; early-wood width; late-wood width. The values are related to a 
+				measurementSeries or a derivedSeries. In case of a measurementSeries the variable 
+				and its measurement unit (e.g. microns, 1/100th mm etc) are recorded as well.			
+			</xs:documentation>
+		</xs:annotation>
 		<xs:complexType>
 			<xs:sequence>
+				<xs:element ref="variable" minOccurs="1" maxOccurs="1"/>
 				<xs:choice>
-					<xs:sequence>
-						<xs:element ref="variable" minOccurs="1" maxOccurs="1"/>
-						<xs:choice>
-							<xs:element ref="unitless"/>	
-							<xs:element ref="unit"/>
-						</xs:choice>
-					</xs:sequence>
-					<xs:sequence>
-						<xs:element ref="unitless"/>
-					</xs:sequence>
+					<xs:element ref="unitless"/>	
+					<xs:element ref="unit"/>
 				</xs:choice>
 				<xs:element ref="value" maxOccurs="unbounded"/>
 			</xs:sequence>
@@ -848,50 +1580,44 @@ more information on http://www.gnu.org/licenses/lgpl.html
 	</xs:element>
 	<!-- VALUES.variable -->
 	<xs:element name="variable">
+		<xs:annotation>
+			<xs:documentation>
+				Measured variable (ring width, earlywood, latewood etc) preferrably 
+				taken from the TRiDaS controlled vocabulary
+			</xs:documentation>
+		</xs:annotation>
 		<xs:complexType>
 			<xs:complexContent>
 				<xs:extension base="controlledVoc">
-					<xs:attribute name="normalTridas">
-						<xs:simpleType>
-							<xs:restriction base="xs:string">
-								<xs:enumeration value="Ring width"/>
-								<xs:enumeration value="Earlywood width"/>
-								<xs:enumeration value="Latewood width"/>
-								<xs:enumeration value="Ring density"/>
-								<xs:enumeration value="Earlywood density"/>
-								<xs:enumeration value="Latewood density"/>
-								<xs:enumeration value="Maximum density"/>
-								<xs:enumeration value="Latewood percent"/>
-							</xs:restriction>
-						</xs:simpleType>
-					</xs:attribute>
+					<xs:attribute name="normalTridas" type="normalTridasVariable"/>
 				</xs:extension>
 			</xs:complexContent>
 		</xs:complexType>
 	</xs:element>
 	<!-- VALUES.unit -->
 	<xs:element name="unit">
+		<xs:annotation>
+			<xs:documentation>
+				Measurement units used for these value, preferrably taken from the
+				TRiDaS controlled vocabulary
+			</xs:documentation>
+		</xs:annotation>
 		<xs:complexType>
 			<xs:complexContent>
 				<xs:extension base="controlledVoc">
-					<xs:attribute name="normalTridas">
-						<xs:simpleType>
-							<xs:restriction base="xs:string">
-								<xs:enumeration value="micrometres"/>
-								<xs:enumeration value="1/100th millimetres"/>
-								<xs:enumeration value="1/10th millimetres"/>
-								<xs:enumeration value="millimetres"/>
-								<xs:enumeration value="centimetres"/>
-								<xs:enumeration value="metres"/>
-							</xs:restriction>
-						</xs:simpleType>
-					</xs:attribute>
+					<xs:attribute name="normalTridas" type="normalTridasUnit"/>
 				</xs:extension>
 			</xs:complexContent>
 		</xs:complexType>
 	</xs:element>
 	<!-- VALUES.unitless (is empty by definition) -->
 	<xs:element name="unitless">
+		<xs:annotation>
+			<xs:documentation>
+				Presence of this field denotes that hte associated values have no
+				units.  Not to be used to denote *unknown* units.
+			</xs:documentation>
+		</xs:annotation>
 		<xs:complexType/>
 	</xs:element>
 	<!-- VALUES.value -->
@@ -900,30 +1626,44 @@ more information on http://www.gnu.org/licenses/lgpl.html
 			<xs:sequence>
 				<xs:element ref="remark" minOccurs="0" maxOccurs="unbounded"/>
 			</xs:sequence>
-			<xs:attribute name="value" type="xs:string" use="required"/>
-			<xs:attribute name="index" type="xs:string" use="required"/>
-			<xs:attribute name="count" type="xs:integer" use="optional"/>
+			<xs:attribute name="value" type="xs:string" use="required">
+				<xs:annotation>
+					<xs:documentation>
+						The actual value being recorded
+					</xs:documentation>
+				</xs:annotation>
+			</xs:attribute>
+			<xs:attribute name="index" type="xs:string" use="required">
+				<xs:annotation>
+					<xs:documentation>
+						Alphanumeric code to identify the sequential position of 
+						the value, e.g. nr1001, nr1002
+					</xs:documentation>
+				</xs:annotation>
+			</xs:attribute>
+			<xs:attribute name="count" type="xs:integer" use="optional">
+				<xs:annotation>
+					<xs:documentation>
+						Optional field to denote how many underlying values went to
+						create this value in a derivedSeries
+					</xs:documentation>
+				</xs:annotation>
+			</xs:attribute>
 		</xs:complexType>
 	</xs:element>
 	<!-- VALUES.remark -->
 	<xs:element name="remark">
+		<xs:annotation>
+			<xs:documentation>
+				Remark about this value.  Remarks can be standardised to consistantly 
+				record important features like 'frost damage' - preferrably using the 
+				TRiDaS controlled vocabulary.
+			</xs:documentation>
+		</xs:annotation>
 		<xs:complexType>
 			<xs:complexContent>
 				<xs:extension base="controlledVoc">
-					<xs:attribute name="normalTridas">
-						<xs:simpleType>
-							<xs:restriction base="xs:string">
-								<xs:enumeration value="Fire damage"/>
-								<xs:enumeration value="Frost damage"/>
-								<xs:enumeration value="Crack"/>
-								<xs:enumeration value="False ring(s)"/>
-								<xs:enumeration value="Compression wood"/>
-								<xs:enumeration value="Tension wood"/>
-								<xs:enumeration value="Traumatic ducts"/>
-								<xs:enumeration value="Unspecified injury"/>
-							</xs:restriction>
-						</xs:simpleType>
-					</xs:attribute>
+					<xs:attribute name="normalTridas" type="normalTridasRemark"/>
 				</xs:extension>
 			</xs:complexContent>
 		</xs:complexType>
