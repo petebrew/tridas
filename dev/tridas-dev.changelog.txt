@@ -21,3 +21,5 @@ TRiDaS v1.2 Changelog
 - Added TRiDaS measuringMethod vocabulary
 - Removed unused measurementSeries.measuringDate 
 - Removed unused derivedSeries.derivationDate
+- Added type=PresenceAbsence to heartwood.presence
+- Changed the sequence of the dimensions tags in the XSD to be cleaner however this does not effect the style of TRiDaS XML files
