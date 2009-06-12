@@ -7,7 +7,7 @@ TRiDaS v1.2 Changelog
 - Allow <variable> and <unitless> to appear together in <value>
 - Removed erroneous maxOccurs="unbounded" from measurementSeries
 - derivedSeries and measurementSeries inherit common fields from baseSeries
-- Added pithAndSapwoodInfo entity and included it in radius and measurementSeries
+- Added woodCompleteness entity and included it in radius and measurementSeries
 - Make 'variable' required in *series
 - Separated TRiDaS normalised controlled vocabs into simpleTypes 
 - Separated common fields (id, title etc) into a base type from which each entity inherits
@@ -23,3 +23,10 @@ TRiDaS v1.2 Changelog
 - Removed unused derivedSeries.derivationDate
 - Added type=PresenceAbsence to heartwood.presence
 - Changed the sequence of the dimensions tags in the XSD to be cleaner however this does not effect the style of TRiDaS XML files
+2009/06/08 PWB
+- Altered pith and heatwood presence to use the 'complexPresenceAbsence' datatype
+- Added presence attribute to 'lastRingUnderBark'
+- Added 'comments' field to all entities using the 'tridasEntity' base datatype
+- Renamed derivedSeries.extent to derivedSeries.location
+- usage and usageComments have been removed favouring their inclusion as generic fields
+
