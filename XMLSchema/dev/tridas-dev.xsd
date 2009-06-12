@@ -274,6 +274,7 @@ more information on http://www.gnu.org/licenses/lgpl.html
 			<xs:element ref="identifier" minOccurs="0"/>
 			<xs:element ref="createdTimestamp" minOccurs="0"/>
 			<xs:element ref="lastModifiedTimestamp" minOccurs="0"/>
+			<xs:element ref="comments" minOccurs="0" maxOccurs="1"/>
 		</xs:sequence>
 	</xs:complexType>
 	<!-- linkSeries -->
@@ -364,7 +365,7 @@ name of the organisation as long as it is not ambiguous.
 		</xs:complexType>
 	</xs:element>
 	<!-- extent -->
-	<xs:element name="extent">
+	<!--<xs:element name="extent">
 		<xs:annotation>
 			<xs:documentation xml:lang="EN">
 				Details about the geographic extent that this entity covers
@@ -395,12 +396,12 @@ name of the organisation as long as it is not ambiguous.
 				Any useful information about the extent
 			</xs:documentation>
 		</xs:annotation>
-	</xs:element>
+	</xs:element>-->
 	<!-- location -->
 	<xs:element name="location">
 		<xs:annotation>
 			<xs:documentation xml:lang="EN">
-				Details about the geographical location of this entity
+				Details about the geographical location of this entity. 
 			</xs:documentation>
 		</xs:annotation>
 		<xs:complexType>
@@ -415,7 +416,9 @@ name of the organisation as long as it is not ambiguous.
 	<xs:element name="locationGeometry">
 		<xs:annotation>
 			<xs:documentation xml:lang="EN">
-				GML representation of a location.  Can be either a point or polygon.
+				GML representation of a location.  Can be either a point to 
+				represent a particular location or a polygon to represent
+				an area or a geographical extent / bounding box.
 			</xs:documentation>
 		</xs:annotation>
 		<xs:complexType>
@@ -1014,12 +1017,12 @@ from exactly one element and can be represented by one or more radii.
 
 <!-- 
 	%%%%%%%%%%%%%%%%%%%%%%%%%%
-	%		PITHANDSAPWOODINFO 
+	%		WOODCOMPLETENESS 
 	%%%%%%%%%%%%%%%%%%%%%%%%%%-->
-	<xs:element name="pithAndSapwoodInfo">
+	<xs:element name="woodCompleteness">
 		<xs:annotation>
 			<xs:documentation xml:lang="EN">
-Details of the pith and sapwood rings.  This is included under the radius or
+Details of the pith, heartwood, sapwood and last ring under the bark.  This is included under the radius or
 measurementSeries entities.  If present in both, the measurementSeries details
 supercede those of the radius.
 			</xs:documentation>
@@ -1033,7 +1036,7 @@ supercede those of the radius.
 			</xs:sequence>
 		</xs:complexType>
 	</xs:element>
-	<!-- PITHANDSAPWOODINFO.pith-->
+	<!-- WOODCOMPLETENESS.pith-->
 	<xs:element name="pith">
 		<xs:annotation>
 			<xs:documentation xml:lang="EN">
@@ -1041,10 +1044,10 @@ supercede those of the radius.
 			</xs:documentation>
 		</xs:annotation>
 		<xs:complexType>
-			<xs:attribute name="presence" use="required" type="presenceAbsence"/>
+			<xs:attribute name="presence" use="required" type="complexPresenceAbsence"/>
 		</xs:complexType>
 	</xs:element>
-	<!-- PITHANDSAPWOODINFO.heartwood -->
+	<!-- WOODCOMPLETENESS.heartwood -->
 	<xs:element name="heartwood">
 		<xs:annotation>
 			<xs:documentation xml:lang="EN">
@@ -1056,7 +1059,7 @@ supercede those of the radius.
 				<xs:element ref="missingHeartwoodRingsToPith" minOccurs="0"/>
 				<xs:element ref="missingHeartwoodRingsToPithFoundation" minOccurs="0"/>
 			</xs:sequence>
-			<xs:attribute name="presence" use="required" type="presenceAbsence"/>
+			<xs:attribute name="presence" use="required" type="complexPresenceAbsence"/>
 		</xs:complexType>
 	</xs:element>
 	<xs:element name="missingHeartwoodRingsToPith" type="xs:string">
@@ -1073,7 +1076,7 @@ supercede those of the radius.
 			</xs:documentation>
 		</xs:annotation>
 	</xs:element>
-	<!-- PITHANDSAPWOODINFO.sapwood -->
+	<!-- WOODCOMPLETENESS.sapwood -->
 	<xs:element name="sapwood">
 		<xs:annotation>
 			<xs:documentation xml:lang="EN">
@@ -1103,7 +1106,7 @@ supercede those of the radius.
 			</xs:documentation>
 		</xs:annotation>
 	</xs:element>
-	<xs:element name="lastRingUnderBark" type="xs:string">
+	<xs:element name="lastRingUnderBark">
 		<xs:annotation>
 			<xs:documentation xml:lang="EN">
 Information about the last rings under the bark. If the last ring is under 
@@ -1111,6 +1114,9 @@ the bark is present, include information about the completeness of this ring
 and/or season of felling. 
 			</xs:documentation>
 		</xs:annotation>
+		<xs:complexType mixed="true">
+			<xs:attribute name="presence" type="presenceAbsence" use="required"/>
+		</xs:complexType>
 	</xs:element>
 	<xs:element name="missingSapwoodRingsToBark" type="xs:string">
 		<xs:annotation>
@@ -1126,7 +1132,7 @@ and/or season of felling.
 			</xs:documentation>
 		</xs:annotation>
 	</xs:element>
-	<!-- PITHANDSAPWOODINFO.bark -->
+	<!-- WOODCOMPLETENESS.bark -->
 	<xs:element name="bark">
 		<xs:annotation>
 			<xs:documentation xml:lang="EN">
@@ -1154,7 +1160,7 @@ resulting in multiple measurementSeries.
 			<xs:complexContent>
 				<xs:extension base="tridasEntity">
 					<xs:sequence>
-						<xs:element ref="pithAndSapwoodInfo" minOccurs="0" maxOccurs="1"/>
+						<xs:element ref="woodCompleteness" minOccurs="0" maxOccurs="1"/>
 						<xs:element ref="azimuth" minOccurs="0"/>
 						<xs:element ref="genericField" minOccurs="0" maxOccurs="unbounded"/>
 						<xs:element ref="measurementSeries" minOccurs="0" maxOccurs="unbounded"/>
@@ -1203,7 +1209,7 @@ resulting in multiple measurementSeries.
 		<xs:complexContent>
 			<xs:extension base="tridasEntity">
 				<xs:sequence>
-					<xs:element ref="pithAndSapwoodInfo" minOccurs="0" maxOccurs="1"/>
+					<xs:element ref="woodCompleteness" minOccurs="0" maxOccurs="1"/>
 					<xs:element ref="analyst" minOccurs="0"/>
 					<xs:element ref="dendrochronologist" minOccurs="0"/>
 					<xs:element ref="measuringMethod" minOccurs="0" maxOccurs="1"/>
@@ -1213,11 +1219,10 @@ resulting in multiple measurementSeries.
 					<xs:element ref="standardizingMethod" minOccurs="0"/>
 					<xs:element ref="author" minOccurs="0"/>
 					<xs:element ref="version" minOccurs="0"/>
-					<xs:element ref="comments" minOccurs="0"/>
-					<xs:element ref="usage" minOccurs="0"/>
-					<xs:element ref="usageComments" minOccurs="0" maxOccurs="unbounded"/>
+					<!--<xs:element ref="usage" minOccurs="0"/>
+					<xs:element ref="usageComments" minOccurs="0" maxOccurs="unbounded"/>-->
 					<xs:group ref="interpretationType" minOccurs="0"/>
-					<xs:element ref="extent" minOccurs="0"/>
+					<xs:element ref="location" minOccurs="0"/>
 					<xs:element ref="genericField" minOccurs="0" maxOccurs="unbounded"/>
 					<xs:element ref="values" minOccurs="0" maxOccurs="unbounded"/>
 				</xs:sequence>
@@ -1250,9 +1255,8 @@ themselves are stored separately as values.
 						<xs:element ref="analyst" minOccurs="0"/>
 						<xs:element ref="dendrochronologist" minOccurs="0"/>
 						<xs:element ref="measuringMethod" minOccurs="1"/>
-						<xs:element ref="comments" minOccurs="0"/>
-						<xs:element ref="usage" minOccurs="0"/>
-						<xs:element ref="usageComments" minOccurs="0" maxOccurs="unbounded"/>
+						<!--<xs:element ref="usage" minOccurs="0"/>
+						<xs:element ref="usageComments" minOccurs="0" maxOccurs="unbounded"/>-->
 						<xs:group ref="interpretationType" minOccurs="0"/>
 						<xs:element ref="genericField" minOccurs="0" maxOccurs="unbounded"/>
 						<xs:element ref="values" minOccurs="0" maxOccurs="unbounded"/>
@@ -1306,21 +1310,21 @@ themselves are stored separately as values.
 		</xs:annotation>
 	</xs:element>
 	<!-- MEASUREMENTSERIES.usage -->
-	<xs:element name="usage" type="xs:string">
+	<!--<xs:element name="usage" type="xs:string">
 		<xs:annotation>
 			<xs:documentation xml:lang="EN">
 				How the series is used, for instance in which chronology
 			</xs:documentation>
 		</xs:annotation>
-	</xs:element>
+	</xs:element>-->
 	<!-- MEASUREMENTSERIES.usageComments -->
-	<xs:element name="usageComments" type="xs:string">
+	<!--<xs:element name="usageComments" type="xs:string">
 		<xs:annotation>
 			<xs:documentation xml:lang="EN">
 				Comments by later users on the quality of the series 
 			</xs:documentation>
 		</xs:annotation>
-	</xs:element>
+	</xs:element>-->
 	<!-- MEASUREMENTSERIES.genericField (global type) -->
 	<!-- Interpretation Type -->
 	<xs:group name="interpretationType">
@@ -1472,11 +1476,10 @@ from one or more measurementSeries and has multiple values associated with it.
 						<xs:element ref="standardizingMethod" minOccurs="0"/>
 						<xs:element ref="author" minOccurs="0"/>
 						<xs:element ref="version" minOccurs="0"/>
-						<xs:element ref="comments" minOccurs="0"/>
-						<xs:element ref="usage" minOccurs="0"/>
-						<xs:element ref="usageComments" minOccurs="0" maxOccurs="unbounded"/>
+						<!--<xs:element ref="usage" minOccurs="0"/>
+						<xs:element ref="usageComments" minOccurs="0" maxOccurs="unbounded"/>-->
 						<xs:group ref="interpretationType" minOccurs="0"/>
-						<xs:element ref="extent" minOccurs="0"/>
+						<xs:element ref="location" minOccurs="0"/>
 						<xs:element ref="genericField" minOccurs="0" maxOccurs="unbounded"/>
 						<xs:element ref="values" minOccurs="0" maxOccurs="unbounded"/>
 					</xs:sequence>
