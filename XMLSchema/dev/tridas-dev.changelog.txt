@@ -29,4 +29,4 @@ TRiDaS v1.2 Changelog
 - Added 'comments' field to all entities using the 'tridasEntity' base datatype
 - Renamed derivedSeries.extent to derivedSeries.location
 - usage and usageComments have been removed favouring their inclusion as generic fields
-
+- Changed the genericField 'type' attribute from free text to an enumerated list of standard XSD data types
