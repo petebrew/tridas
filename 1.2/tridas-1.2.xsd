@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- 
-TRiDaS 1.3 dev: Tree-Ring Data Standard for dendrochronology
+TRiDaS 1.2 dev: Tree-Ring Data Standard for dendrochronology
 See http://www.tridas.org/ for:
 - more information
 - contact information 
 - latest version
 
-Version date: 2009-XX-XX
+Version date: 2009-06-17
 
 This XML Schema is available under LGPLv3 
 more information on http://www.gnu.org/licenses/lgpl.html
 
 ***********************************************-->
-<xs:schema xmlns="http://www.tridas.org/1.3" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:gml="http://www.opengis.net/gml" targetNamespace="http://www.tridas.org/1.3" elementFormDefault="qualified" attributeFormDefault="unqualified">
+<xs:schema xmlns="http://www.tridas.org/1.2" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:gml="http://www.opengis.net/gml" targetNamespace="http://www.tridas.org/1.2" elementFormDefault="qualified" attributeFormDefault="unqualified">
 	<!--
 %%%%%%%%%%%%%%
 %		EXTERNAL SCHEMAS	
@@ -364,39 +364,6 @@ name of the organisation as long as it is not ambiguous.
 			</xs:simpleContent>
 		</xs:complexType>
 	</xs:element>
-	<!-- extent -->
-	<!--<xs:element name="extent">
-		<xs:annotation>
-			<xs:documentation xml:lang="EN">
-				Details about the geographic extent that this entity covers
-			</xs:documentation>
-		</xs:annotation>
-		<xs:complexType>
-			<xs:sequence>
-				<xs:element ref="extentGeometry"/>
-				<xs:element ref="extentComment" minOccurs="0"/>
-			</xs:sequence>
-		</xs:complexType>
-	</xs:element>
-	<xs:element name="extentGeometry">
-		<xs:annotation>
-			<xs:documentation xml:lang="EN">
-				A GML representation of the extent
-			</xs:documentation>
-		</xs:annotation>
-		<xs:complexType>
-			<xs:sequence>
-				<xs:element ref="gml:Polygon"/>
-			</xs:sequence>
-		</xs:complexType>
-	</xs:element>
-	<xs:element name="extentComment" type="xs:string">
-		<xs:annotation>
-			<xs:documentation xml:lang="EN">
-				Any useful information about the extent
-			</xs:documentation>
-		</xs:annotation>
-	</xs:element>-->
 	<!-- location -->
 	<xs:element name="location">
 		<xs:annotation>
@@ -1280,6 +1247,8 @@ resulting in multiple measurementSeries.
 		<xs:complexContent>
 			<xs:extension base="tridasEntity">
 				<xs:sequence>
+					<xs:element ref="measuringDate" minOccurs="0" maxOccurs="1"/>
+					<xs:element ref="derivationDate" minOccurs="0" maxOccurs="1"/>
 					<xs:element ref="woodCompleteness" minOccurs="0" maxOccurs="1"/>
 					<xs:element ref="analyst" minOccurs="0"/>
 					<xs:element ref="dendrochronologist" minOccurs="0"/>
@@ -1290,8 +1259,6 @@ resulting in multiple measurementSeries.
 					<xs:element ref="standardizingMethod" minOccurs="0"/>
 					<xs:element ref="author" minOccurs="0"/>
 					<xs:element ref="version" minOccurs="0"/>
-					<!--<xs:element ref="usage" minOccurs="0"/>
-					<xs:element ref="usageComments" minOccurs="0" maxOccurs="unbounded"/>-->
 					<xs:group ref="interpretationType" minOccurs="0"/>
 					<xs:element ref="location" minOccurs="0"/>
 					<xs:element ref="genericField" minOccurs="0" maxOccurs="unbounded"/>
@@ -1324,6 +1291,7 @@ themselves are stored separately as values.
 						<xs:element ref="createdTimestamp" minOccurs="0"/>
 						<xs:element ref="lastModifiedTimestamp" minOccurs="0"/>
 						<xs:element ref="comments" minOccurs="0"/>
+						<xs:element ref="measuringDate" minOccurs="0" maxOccurs="1"/>
 						<xs:element ref="analyst" minOccurs="0"/>
 						<xs:element ref="dendrochronologist" minOccurs="0"/>
 						<xs:element ref="measuringMethod" minOccurs="1"/>
@@ -1342,6 +1310,14 @@ themselves are stored separately as values.
 	<!-- MEASUREMENTSERIES.identifier (global type) -->
 	<!-- MEASUREMENTSERIES.createdTimestamp (global type) -->
 	<!-- MEASUREMENTSERIES.lastModifiedTimestamp (global type) -->
+	<!-- MEASUREMENTSERIES.measuringDate -->
+	<xs:element name="measuringDate" type="date">
+		<xs:annotation>
+			<xs:documentation>
+				Date that the measurements where made.
+			</xs:documentation>
+		</xs:annotation>
+	</xs:element>
 	<!-- MEASUREMENTSERIES.analyst -->
 	<xs:element name="analyst" type="xs:string">
 		<xs:annotation>
@@ -1387,22 +1363,6 @@ themselves are stored separately as values.
 			</xs:documentation>
 		</xs:annotation>
 	</xs:element>
-	<!-- MEASUREMENTSERIES.usage -->
-	<!--<xs:element name="usage" type="xs:string">
-		<xs:annotation>
-			<xs:documentation xml:lang="EN">
-				How the series is used, for instance in which chronology
-			</xs:documentation>
-		</xs:annotation>
-	</xs:element>-->
-	<!-- MEASUREMENTSERIES.usageComments -->
-	<!--<xs:element name="usageComments" type="xs:string">
-		<xs:annotation>
-			<xs:documentation xml:lang="EN">
-				Comments by later users on the quality of the series 
-			</xs:documentation>
-		</xs:annotation>
-	</xs:element>-->
 	<!-- MEASUREMENTSERIES.genericField (global type) -->
 	<!-- Interpretation Type -->
 	<xs:group name="interpretationType">
@@ -1549,14 +1509,13 @@ from one or more measurementSeries and has multiple values associated with it.
 						<xs:element ref="createdTimestamp" minOccurs="0"/>
 						<xs:element ref="lastModifiedTimestamp" minOccurs="0"/>
 						<xs:element ref="comments" minOccurs="0"/>
+						<xs:element ref="derivationDate" minOccurs="0" maxOccurs="1"/>
 						<xs:element ref="type" minOccurs="1"/>
 						<xs:element ref="linkSeries" minOccurs="1" maxOccurs="unbounded"/>
 						<xs:element ref="objective" minOccurs="0"/>
 						<xs:element ref="standardizingMethod" minOccurs="0"/>
 						<xs:element ref="author" minOccurs="0"/>
 						<xs:element ref="version" minOccurs="0"/>
-						<!--<xs:element ref="usage" minOccurs="0"/>
-						<xs:element ref="usageComments" minOccurs="0" maxOccurs="unbounded"/>-->
 						<xs:group ref="interpretationType" minOccurs="0"/>
 						<xs:element ref="location" minOccurs="0"/>
 						<xs:element ref="genericField" minOccurs="0" maxOccurs="unbounded"/>
@@ -1567,12 +1526,19 @@ from one or more measurementSeries and has multiple values associated with it.
 			</xs:complexContent>
 		</xs:complexType>
 	</xs:element>
-	
 	<!-- DERIVEDSERIES.title (global type) -->
 	<!-- DERIVEDSERIES.identifier (global type) -->
 	<!-- DERIVEDSERIES.createdTimestamp (global type) -->
 	<!-- DERIVEDSERIES.lastModifiedTimestamp (global type) -->
 	<!-- DERIVEDSERIES.type (global type) -->
+	<!-- DERIVEDSERIES.derivationDate -->
+	<xs:element name="derivationDate" type="date">
+		<xs:annotation>
+			<xs:documentation>
+				The date that this derivedSeries was created.
+			</xs:documentation>
+		</xs:annotation>
+	</xs:element>
 	<!-- DERIVEDSERIES.objective -->
 	<xs:element name="objective" type="xs:string">
 		<xs:annotation>
