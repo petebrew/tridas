@@ -1,10 +1,4 @@
-TRiDaS v1.3dev Changelog
-***************************
-
-
-
-Previous changes 
-(from version 1.1 to v1.2)
+TRiDaS v1.2 Changelog
 ***************************
 
 - Added object.preferredSeries
