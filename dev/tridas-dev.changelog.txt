@@ -1,6 +1,6 @@
 TRiDaS v1.3dev Changelog
 ***************************
-
+- Removed duplicate field derivedSeries.interpretation.usedSoftware as it is also present in derivedSeries.interpretation.statFoundation.
 
 
 Previous changes 
