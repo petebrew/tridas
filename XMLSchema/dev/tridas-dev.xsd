@@ -1429,7 +1429,6 @@ themselves are stored separately as values.
 				<xs:element ref="datingReference" minOccurs="0"/>
 				<xs:element ref="statFoundation" minOccurs="0" maxOccurs="unbounded"/>
 				<xs:element ref="sproutYear" minOccurs="0"/>
-				<xs:element ref="usedSoftware" minOccurs="0"/>
 				<xs:element ref="deathYear" minOccurs="0"/>
 				<xs:element ref="provenance" minOccurs="0"/>
 			</xs:sequence>
