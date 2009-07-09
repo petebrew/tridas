@@ -487,7 +487,7 @@ name of the organisation as long as it is not ambiguous.
 							<xs:restriction base="xs:string">
 								<xs:enumeration value="xs:string"/>
 								<xs:enumeration value="xs:boolean"/>
-								<xs:enumeration value="xs:integer"/>
+								<xs:enumeration value="xs:int"/>
 								<xs:enumeration value="xs:float"/>
 								<xs:enumeration value="xs:date"/>
 								<xs:enumeration value="xs:dateTime"/>
@@ -945,14 +945,14 @@ controlled vocabulary, or perferably from the TRiDaS controlled vocabulary.
 		</xs:annotation>
 		<xs:complexType>
 			<xs:sequence>
-				<xs:element name="angle" type="xs:integer" minOccurs="0">
+				<xs:element name="angle" type="xs:int" minOccurs="0">
 					<xs:annotation>
 						<xs:documentation xml:lang="EN">
 							Angle of slope from horizontal in degrees
 						</xs:documentation>
 					</xs:annotation>
 				</xs:element>
-				<xs:element name="azimuth" type="xs:integer" minOccurs="0">
+				<xs:element name="azimuth" type="xs:int" minOccurs="0">
 					<xs:annotation>
 						<xs:documentation xml:lang="EN">
 							Angle in degrees from north along which the slope lies
@@ -1170,7 +1170,7 @@ supercede those of the radius.
 			</xs:attribute>
 		</xs:complexType>
 	</xs:element>
-	<xs:element name="nrOfSapwoodRings" type="xs:string">
+	<xs:element name="nrOfSapwoodRings" type="xs:int">
 		<xs:annotation>
 			<xs:documentation xml:lang="EN">
 				Number of sapwood rings measured
@@ -1695,7 +1695,7 @@ the units used are recorded in the 'values' container in the associated measurem
 					</xs:documentation>
 				</xs:annotation>
 			</xs:attribute>
-			<xs:attribute name="count" type="xs:integer" use="optional">
+			<xs:attribute name="count" type="xs:int" use="optional">
 				<xs:annotation>
 					<xs:documentation xml:lang="EN">
 						Optional field to denote how many underlying values went to create this value in a derivedSeries

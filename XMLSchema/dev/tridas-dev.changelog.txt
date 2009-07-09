@@ -1,7 +1,8 @@
 TRiDaS v1.3dev Changelog
 ***************************
 - Removed duplicate field derivedSeries.interpretation.usedSoftware as it is also present in derivedSeries.interpretation.statFoundation.
-
+- Replaced all xs:integer datatypes with xs:int as it better reflects the standard concept of an 'integer' in most programming languages.  xs:integer is unbound in terms of size so values could crash many programs that assume it to be a traditional 32 bit signed integer.
+- Changed the nrOfSapwoodRings datatype from xs:string to xs:int as it should always be an integer
 
 Previous changes 
 (from version 1.1 to v1.2)
