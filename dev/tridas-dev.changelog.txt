@@ -3,6 +3,18 @@ TRiDaS v1.3dev Changelog
 - Removed duplicate field derivedSeries.interpretation.usedSoftware as it is also present in derivedSeries.interpretation.statFoundation.
 - Replaced all xs:integer datatypes with xs:int as it better reflects the standard concept of an 'integer' in most programming languages.  xs:integer is unbound in terms of size so values could crash many programs that assume it to be a traditional 32 bit signed integer.
 - Changed the nrOfSapwoodRings datatype from xs:string to xs:int as it should always be an integer
+- Added documentation to statFoundation field
+- Added woodCompleteness to measurementSeries.  It was added to the baseSeries concept in v1.2 but was mistakenly not added to the measurementSeries sequence.
+- the usage and usageComments fields that were commented out in v1.2 have been completely removed
+- Changed interpretationUnsolved data type from string to empty
+- Changed linkSeries maxOccurs to 1 from unbounded as this is a container field that encompasses many series but should only be represented once itself.
+- Reintroduced measurementSeries.measuringDate
+- Added value.inheritedCount 
+- Changed linkSeries to a datatype.  
+- Add <series> tags around each series in <linkSeries>
+- Extended linkSeries datatype to include <preferredSeries> in 'object'.
+
+
 
 Previous changes 
 (from version 1.1 to v1.2)
