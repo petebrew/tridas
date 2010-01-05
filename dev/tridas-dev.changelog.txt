@@ -1,4 +1,4 @@
-TRiDaS v1.3dev Changelog
+TRiDaS dev Changelog
 ***************************
 - Removed duplicate field derivedSeries.interpretation.usedSoftware as it is also present in derivedSeries.interpretation.statFoundation.
 - Replaced all xs:integer datatypes with xs:int as it better reflects the standard concept of an 'integer' in most programming languages.  xs:integer is unbound in terms of size so values could crash many programs that assume it to be a traditional 32 bit signed integer.
@@ -13,7 +13,13 @@ TRiDaS v1.3dev Changelog
 - Changed linkSeries to a datatype.  
 - Add <series> tags around each series in <linkSeries>
 - Extended linkSeries datatype to include <preferredSeries> in 'object'.
-
+*** Following changes made after Amersfoort meeting 2009/12/14
+- Renamed *series.interpretation.sproutYear to pithYear
+- Added tag *series.interpretation.dating with attribute "type" to enable the distinction between absolute and relatively dated series.
+- Added woodCompleteness.ringCount 
+- Added woodCompleteness.averageRingWidth
+- Added woodCompleteness.sapwood.nrOfUnmeasuredSapwoodRings
+- Added woodCompleteness.heartwood.nrOfUnmeasuredHeartwoodRings
 
 
 Previous changes 
