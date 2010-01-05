@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- 
-TRiDaS 1.3 dev: Tree-Ring Data Standard for dendrochronology
+TRiDaS dev: Tree-Ring Data Standard for dendrochronology
 See http://www.tridas.org/ for:
 - more information
 - contact information  
 - latest version
 
-Version date: 2009-XX-XX
+Version date: 2010-XX-XX
 
 This XML Schema is available under LGPLv3 
 more information on http://www.gnu.org/licenses/lgpl.html
 
 ***********************************************-->
-<xs:schema xmlns="http://www.tridas.org/1.3" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:gml="http://www.opengis.net/gml" targetNamespace="http://www.tridas.org/1.3" elementFormDefault="qualified" attributeFormDefault="unqualified">
+<xs:schema xmlns="http://www.tridas.org/dev" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:gml="http://www.opengis.net/gml" targetNamespace="http://www.tridas.org/dev" elementFormDefault="qualified" attributeFormDefault="unqualified">
 	<!--
 %%%%%%%%%%%%%%
 %		EXTERNAL SCHEMAS	
@@ -28,6 +28,20 @@ more information on http://www.gnu.org/licenses/lgpl.html
 %%%%%%%%%%%%%%
 %		TRIDAS VOCABULARIES
 %%%%%%%%%%%%%% -->
+	<!-- TRiDaS controlledVoc for DatingType-->
+	<xs:simpleType name="normalTridasDatingType">
+		<xs:annotation>
+			<xs:documentation xml:lang="EN">
+				TriDaS specified controlled vocabulary for the type of dating
+			</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="Absolute"/>
+			<xs:enumeration value="Dated with uncertainty"/>
+			<xs:enumeration value="Relative"/>
+			<xs:enumeration value="Radiocarbon"/>
+		</xs:restriction>
+	</xs:simpleType>
 	<!-- TRiDaS controlledVoc for measuringMethod-->
 	<xs:simpleType name="normalTridasMeasuringMethod">
 		<xs:annotation>
@@ -312,54 +326,6 @@ more information on http://www.gnu.org/licenses/lgpl.html
 			</xs:extension>
 		</xs:complexContent>
 	</xs:complexType>	
-
-	<!-- linkSeries -->
-	<!--<xs:element name="linkSeries">
-		<xs:annotation>
-			<xs:documentation xml:lang="EN">
-				Fields for storing links to Series
-			</xs:documentation>
-		</xs:annotation>
-		<xs:complexType>
-			<xs:sequence>
-				<xs:element name="preferredSeries" minOccurs="0" maxOccurs="1">
-					<xs:annotation>
-						<xs:documentation xml:lang="EN">
-							Link to preferred (best/most representative) series for this entity 
-						</xs:documentation>
-					</xs:annotation>
-					<xs:complexType>
-						<xs:choice>
-							<xs:element name="idRef">
-								<xs:complexType>
-									<xs:attribute name="ref" type="xs:IDREF"/>
-								</xs:complexType>
-							</xs:element>
-							<xs:element name="xLink">
-								<xs:complexType>
-									<xs:attribute ref="xlink:href"/>
-								</xs:complexType>
-							</xs:element>
-							<xs:element ref="identifier"/>
-						</xs:choice>
-					</xs:complexType>
-				</xs:element>
-				<xs:choice minOccurs="0" maxOccurs="unbounded">
-					<xs:element name="idRef">
-						<xs:complexType>
-							<xs:attribute name="ref" type="xs:IDREF"/>
-						</xs:complexType>
-					</xs:element>
-					<xs:element name="xLink">
-						<xs:complexType>
-							<xs:attribute ref="xlink:href"/>
-						</xs:complexType>
-					</xs:element>
-					<xs:element ref="identifier"/>
-				</xs:choice>			
-			</xs:sequence>
-		</xs:complexType>
-		</xs:element>-->
 	
 	<!-- type -->
 	<xs:element name="type" type="controlledVoc">
@@ -1123,20 +1089,22 @@ from exactly one element and can be represented by one or more radii.
 	</xs:element>
 	<!-- SAMPLE.genericField (global type) -->
 
-<!-- 
-	%%%%%%%%%%%%%%%%%%%%%%%%%%
-	%		WOODCOMPLETENESS 
-	%%%%%%%%%%%%%%%%%%%%%%%%%%-->
+	<!-- 
+		%%%%%%%%%%%%%%%%%%%%%%%%%%
+		%		WOODCOMPLETENESS 
+		%%%%%%%%%%%%%%%%%%%%%%%%%%-->
 	<xs:element name="woodCompleteness">
 		<xs:annotation>
 			<xs:documentation xml:lang="EN">
-Details of the pith, heartwood, sapwood and last ring under the bark.  This is included under the radius or
-measurementSeries entities.  If present in both, the measurementSeries details
-supercede those of the radius.
+				Details of the pith, heartwood, sapwood and last ring under the bark.  This is included under the radius or
+				measurementSeries entities.  If present in both, the measurementSeries details
+				supercede those of the radius.
 			</xs:documentation>
 		</xs:annotation>
 		<xs:complexType>
 			<xs:sequence>
+				<xs:element ref="ringCount" minOccurs="0"/>
+				<xs:element ref="averageRingWidth" minOccurs="0"/>
 				<xs:element ref="pith"/>
 				<xs:element ref="heartwood"/>
 				<xs:element ref="sapwood"/>
@@ -1144,6 +1112,22 @@ supercede those of the radius.
 			</xs:sequence>
 		</xs:complexType>
 	</xs:element>
+	<!-- WOODCOMPLETENESS.ringCount-->
+	<xs:element name="ringCount" type="xs:int">
+		<xs:annotation>
+			<xs:documentation>
+				Convenience field for recording the total number of rings measured.  In there is a disparity between this field and the actual number of 'values' tags, then the number of 'values' tags should be taken as definitive.
+			</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<!-- WOODCOMPLETENESS.averageRingWidth-->
+	<xs:element name="averageRingWidth" type="xs:double">
+		<xs:annotation>
+			<xs:documentation>
+				Convenience field for recording the average ring width of rings measured.  In there is a disparity between this field and the actual 'values' tags, then the average of the 'values' tags should be taken as definitive.
+			</xs:documentation>
+		</xs:annotation>
+	</xs:element>	
 	<!-- WOODCOMPLETENESS.pith-->
 	<xs:element name="pith">
 		<xs:annotation>
@@ -1164,13 +1148,21 @@ supercede those of the radius.
 		</xs:annotation>
 		<xs:complexType>
 			<xs:sequence>
+				<xs:element ref="nrOfUnmeasuredHeartwoodRings" minOccurs="0"/>
 				<xs:element ref="missingHeartwoodRingsToPith" minOccurs="0"/>
 				<xs:element ref="missingHeartwoodRingsToPithFoundation" minOccurs="0"/>
 			</xs:sequence>
 			<xs:attribute name="presence" use="required" type="complexPresenceAbsence"/>
 		</xs:complexType>
 	</xs:element>
-	<xs:element name="missingHeartwoodRingsToPith" type="xs:string">
+	<xs:element name="nrOfUnmeasuredHeartwoodRings" type="xs:int">
+		<xs:annotation>
+			<xs:documentation xml:lang="EN">
+				The number of heartwood rings that were seen but not measured
+			</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="missingHeartwoodRingsToPith" type="xs:int">
 		<xs:annotation>
 			<xs:documentation xml:lang="EN">
 				Estimated number of missing heartwood rings to the pith
@@ -1194,6 +1186,7 @@ supercede those of the radius.
 		<xs:complexType>
 			<xs:sequence>
 				<xs:element ref="nrOfSapwoodRings" minOccurs="0"/>
+				<xs:element ref="nrOfUnmeasuredSapwoodRings" minOccurs="0"/>
 				<xs:element ref="lastRingUnderBark" minOccurs="0"/>
 				<xs:element ref="missingSapwoodRingsToBark" minOccurs="0"/>
 				<xs:element ref="missingSapwoodRingsToBarkFoundation" minOccurs="0"/>
@@ -1214,19 +1207,26 @@ supercede those of the radius.
 			</xs:documentation>
 		</xs:annotation>
 	</xs:element>
+	<xs:element name="nrOfUnmeasuredSapwoodRings" type="xs:int">
+		<xs:annotation>
+			<xs:documentation xml:lang="EN">
+				The number of sapwood rings that were seen but not measured
+			</xs:documentation>
+		</xs:annotation>
+	</xs:element>
 	<xs:element name="lastRingUnderBark">
 		<xs:annotation>
 			<xs:documentation xml:lang="EN">
-Information about the last rings under the bark. If the last ring is under 
-the bark is present, include information about the completeness of this ring 
-and/or season of felling. 
+				Information about the last rings under the bark. If the last ring is under 
+				the bark is present, include information about the completeness of this ring 
+				and/or season of felling. 
 			</xs:documentation>
 		</xs:annotation>
 		<xs:complexType mixed="true">
 			<xs:attribute name="presence" type="presenceAbsence" use="required"/>
 		</xs:complexType>
 	</xs:element>
-	<xs:element name="missingSapwoodRingsToBark" type="xs:string">
+	<xs:element name="missingSapwoodRingsToBark" type="xs:int">
 		<xs:annotation>
 			<xs:documentation xml:lang="EN">
 				Estimated number of missing sapwood rings to the bark
@@ -1454,13 +1454,30 @@ themselves are stored separately as values.
 		</xs:annotation>
 		<xs:complexType>
 			<xs:sequence>
+				<xs:element ref="dating" minOccurs="0"/>
 				<xs:element ref="firstYear" minOccurs="0"/>
 				<xs:element ref="datingReference" minOccurs="0"/>
 				<xs:element ref="statFoundation" minOccurs="0" maxOccurs="unbounded"/>
-				<xs:element ref="sproutYear" minOccurs="0"/>
+				<xs:element ref="pithYear" minOccurs="0"/>
 				<xs:element ref="deathYear" minOccurs="0"/>
 				<xs:element ref="provenance" minOccurs="0"/>
 			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="dating">
+		<xs:annotation>
+			<xs:documentation xml:lang="EN">
+				Information about dating
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:attribute name="type" type="normalTridasDatingType" use="required">
+				<xs:annotation>
+					<xs:documentation xml:lang="EN">
+						Field to denote dating type
+					</xs:documentation>
+				</xs:annotation>
+			</xs:attribute>
 		</xs:complexType>
 	</xs:element>
 	<xs:element name="datingReference">
@@ -1519,7 +1536,7 @@ Container for fields that describe the statistical method used for crossdating
 			</xs:documentation>
 		</xs:annotation>
 	</xs:element>
-	<xs:element name="sproutYear" type="year">
+	<xs:element name="pithYear" type="year">
 		<xs:annotation>
 			<xs:documentation xml:lang="EN">
 				Estimated year that the tree sprouted
@@ -1596,7 +1613,6 @@ from one or more measurementSeries and has multiple values associated with it.
 			</xs:complexContent>
 		</xs:complexType>
 	</xs:element>
-	
 	<!-- DERIVEDSERIES.title (global type) -->
 	<!-- DERIVEDSERIES.identifier (global type) -->
 	<!-- DERIVEDSERIES.createdTimestamp (global type) -->
