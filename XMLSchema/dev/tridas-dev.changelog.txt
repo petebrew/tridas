@@ -9,7 +9,7 @@ TRiDaS dev Changelog
 - Changed interpretationUnsolved data type from string to empty
 - Changed linkSeries maxOccurs to 1 from unbounded as this is a container field that encompasses many series but should only be represented once itself.
 - Reintroduced measurementSeries.measuringDate
-- Added value.inheritedCount 
+- Added remark.inheritedCount 
 - Changed linkSeries to a datatype.  
 - Add <series> tags around each series in <linkSeries>
 - Extended linkSeries datatype to include <preferredSeries> in 'object'.
@@ -23,7 +23,8 @@ TRiDaS dev Changelog
 - Added address fields to location
 - Added address fields to project.laboratory
 - Added lastYear (with certainty and suffix) to interpretation
-- Removed value.index field
+- Removed value.index field as it is redundant 
+- Added vocabulary section to enable the sharing of dictionaries.  Includes tags for all controlled vocab entries in TRiDaS.
 
 Previous changes 
 (from version 1.1 to v1.2)
