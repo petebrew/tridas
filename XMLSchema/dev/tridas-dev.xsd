@@ -184,6 +184,11 @@ more information on http://www.gnu.org/licenses/lgpl.html
 						<xs:documentation xml:lang="EN">The normalised name for this entry</xs:documentation>
 					</xs:annotation>
 				</xs:attribute>
+				<xs:attribute name="lang" type="xs:language">
+					<xs:annotation>
+						<xs:documentation xml:lang="EN">The language this term is in.  Default is EN if not specified.</xs:documentation>
+					</xs:annotation>
+				</xs:attribute>
 			</xs:extension>
 		</xs:simpleContent>
 	</xs:complexType>
@@ -367,39 +372,6 @@ name of the organisation as long as it is not ambiguous.
 			</xs:simpleContent>
 		</xs:complexType>
 	</xs:element>
-	<!-- extent -->
-	<!--<xs:element name="extent">
-		<xs:annotation>
-			<xs:documentation xml:lang="EN">
-				Details about the geographic extent that this entity covers
-			</xs:documentation>
-		</xs:annotation>
-		<xs:complexType>
-			<xs:sequence>
-				<xs:element ref="extentGeometry"/>
-				<xs:element ref="extentComment" minOccurs="0"/>
-			</xs:sequence>
-		</xs:complexType>
-	</xs:element>
-	<xs:element name="extentGeometry">
-		<xs:annotation>
-			<xs:documentation xml:lang="EN">
-				A GML representation of the extent
-			</xs:documentation>
-		</xs:annotation>
-		<xs:complexType>
-			<xs:sequence>
-				<xs:element ref="gml:Polygon"/>
-			</xs:sequence>
-		</xs:complexType>
-	</xs:element>
-	<xs:element name="extentComment" type="xs:string">
-		<xs:annotation>
-			<xs:documentation xml:lang="EN">
-				Any useful information about the extent
-			</xs:documentation>
-		</xs:annotation>
-	</xs:element>-->
 	<!-- location -->
 	<xs:element name="location">
 		<xs:annotation>
@@ -413,6 +385,7 @@ name of the organisation as long as it is not ambiguous.
 				<xs:element ref="locationType" minOccurs="0"/>
 				<xs:element ref="locationPrecision" minOccurs="0"/>
 				<xs:element ref="locationComment" minOccurs="0"/>
+				<xs:element ref="address" minOccurs="0"/>
 			</xs:sequence>
 		</xs:complexType>
 	</xs:element>
@@ -433,7 +406,7 @@ name of the organisation as long as it is not ambiguous.
 	</xs:element>
 	<xs:element name="locationType" type="normalTridasLocationType">
 		<xs:annotation>
-			<xs:documentation>
+			<xs:documentation xml:lang="EN">
 				The type of location that the geometry field represents taken from the TRiDaS controlled vocabulary.
 			</xs:documentation>
 		</xs:annotation>
@@ -451,6 +424,23 @@ name of the organisation as long as it is not ambiguous.
 				Additional information about the location, for example, point taken from center or corner of area, which corner
 			</xs:documentation>
 		</xs:annotation>
+	</xs:element>
+	<xs:element name="address">
+		<xs:annotation>
+			<xs:documentation xml:lang="EN">
+				Address information about this location
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="addressLine1" type="xs:string" minOccurs="0"/>
+				<xs:element name="addressLine2" type="xs:string" minOccurs="0"/>
+				<xs:element name="cityOrTown" type="xs:string" minOccurs="0"/>
+				<xs:element name="stateProvinceRegion" type="xs:string" minOccurs="0"/>
+				<xs:element name="postalCode" type="xs:string" minOccurs="0"/>
+				<xs:element name="country" type="xs:string" minOccurs="0"/>
+			</xs:sequence>
+		</xs:complexType>
 	</xs:element>
 	<!-- file -->
 	<xs:element name="file">
@@ -508,9 +498,10 @@ name of the organisation as long as it is not ambiguous.
 %%%%%%%%%%%%%% -->
 	<xs:element name="tridas">
 		<xs:complexType>
-			<xs:sequence>
-				<xs:element ref="project" maxOccurs="unbounded"/>
-			</xs:sequence>
+			<xs:all>
+				<xs:element ref="project"/>
+				<xs:element ref="vocabulary"/>
+			</xs:all>
 		</xs:complexType>
 	</xs:element>
 	<!-- 
@@ -592,20 +583,7 @@ Therefore, a project can have one or more objects associated with it.
 						</xs:simpleContent>
 					</xs:complexType>
 				</xs:element>			
-				<xs:element name="place" type="xs:string">
-					<xs:annotation>
-						<xs:documentation xml:lang="EN">
-							Town or city where the laboratory is located.
-						</xs:documentation>
-					</xs:annotation>
-				</xs:element>
-				<xs:element name="country" type="xs:string">
-					<xs:annotation>
-						<xs:documentation xml:lang="EN">
-							Country where the laboratory is located.
-						</xs:documentation>
-					</xs:annotation>
-				</xs:element>		
+				<xs:element ref="address"/>
 			</xs:sequence>
 		</xs:complexType>
 	</xs:element>
@@ -1456,6 +1434,7 @@ themselves are stored separately as values.
 			<xs:sequence>
 				<xs:element ref="dating" minOccurs="0"/>
 				<xs:element ref="firstYear" minOccurs="0"/>
+				<xs:element ref="lastYear" minOccurs="0"/>
 				<xs:element ref="datingReference" minOccurs="0"/>
 				<xs:element ref="statFoundation" minOccurs="0" maxOccurs="unbounded"/>
 				<xs:element ref="pithYear" minOccurs="0"/>
@@ -1500,6 +1479,13 @@ was used to date this series.  It is not to be confused with sproutYear.
 			</xs:documentation>
 		</xs:annotation>
 	</xs:element>
+	<xs:element name="lastYear" type="year">
+		<xs:annotation>
+			<xs:documentation xml:lang="EN">
+Year of the last measured ring.  It is not to be confused with deathYear which might also include unmeasured or hypothetical rings
+			</xs:documentation>
+		</xs:annotation>
+	</xs:element>	
 	<xs:element name="statFoundation">
 		<xs:annotation>
 			<xs:documentation xml:lang="EN">
@@ -1621,7 +1607,7 @@ from one or more measurementSeries and has multiple values associated with it.
 	<!-- DERIVEDSERIES.derivationDate -->
 	<xs:element name="derivationDate" type="date">
 		<xs:annotation>
-			<xs:documentation>
+			<xs:documentation xml:lang="EN">
 				The date that this derivedSeries was created.
 			</xs:documentation>
 		</xs:annotation>
@@ -1742,13 +1728,6 @@ the units used are recorded in the 'values' container in the associated measurem
 					</xs:documentation>
 				</xs:annotation>
 			</xs:attribute>
-			<xs:attribute name="index" type="xs:string" use="required">
-				<xs:annotation>
-					<xs:documentation xml:lang="EN">
-						Alphanumeric code to identify the sequential position of the value, e.g. nr1001, nr1002
-					</xs:documentation>
-				</xs:annotation>
-			</xs:attribute>
 			<xs:attribute name="count" type="xs:int" use="optional">
 				<xs:annotation>
 					<xs:documentation xml:lang="EN">
@@ -1772,14 +1751,14 @@ TRiDaS controlled vocabulary.
 				<xs:extension base="controlledVoc">
 					<xs:attribute name="normalTridas" type="normalTridasRemark">
 						<xs:annotation>
-							<xs:documentation>
+							<xs:documentation xml:lang="EN">
 								TRiDaS controlled vocabulary for specific remarks.
 							</xs:documentation>
 						</xs:annotation>
 					</xs:attribute>
 					<xs:attribute name="inheritedCount" type="xs:int">
 						<xs:annotation>
-							<xs:documentation>
+							<xs:documentation xml:lang="EN">
 								In derivedSeries this shows the number of constituent measurementSeries that this remark is found in.
 							</xs:documentation>
 						</xs:annotation>
@@ -1788,4 +1767,97 @@ TRiDaS controlled vocabulary.
 			</xs:complexContent>
 		</xs:complexType>
 	</xs:element>
+	
+	
+	<!--
+		%%%%%%%%%%%%%%
+		%		VOCABULARIES
+		%%%%%%%%%%%%%% -->
+	<xs:element name="vocabulary">
+		<xs:annotation>
+			<xs:documentation>Collection of one or more vocabulary dictionaries</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:all>
+				<xs:element  name="project.category" minOccurs="0" maxOccurs="1">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element ref="category" minOccurs="1" maxOccurs="unbounded"/>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+				<xs:element  name="project.type" minOccurs="0" maxOccurs="1">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element ref="type" minOccurs="1" maxOccurs="unbounded"/>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="object.type" minOccurs="0" maxOccurs="1">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element ref="type" minOccurs="1" maxOccurs="unbounded"/>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>	
+				<xs:element name="element.type" minOccurs="0" maxOccurs="1">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element ref="type" minOccurs="1" maxOccurs="unbounded"/>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>	
+				<xs:element name="element.taxon" minOccurs="0" maxOccurs="1">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element ref="taxon" minOccurs="1" maxOccurs="unbounded"/>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>				
+				<xs:element name="element.shape" minOccurs="0" maxOccurs="1">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element ref="shape" minOccurs="1" maxOccurs="unbounded"/>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="measurementSeries.measuringMethod" minOccurs="0" maxOccurs="1">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element ref="measuringMethod" minOccurs="1" maxOccurs="unbounded"/>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>					
+				<xs:element name="values.variable" minOccurs="0" maxOccurs="1">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element ref="variable" minOccurs="1" maxOccurs="unbounded"/>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>	
+				<xs:element name="values.unit" minOccurs="0" maxOccurs="1">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element ref="unit" minOccurs="1" maxOccurs="unbounded"/>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>					
+				<xs:element name="values.remark" minOccurs="0" maxOccurs="1">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element ref="remark" minOccurs="1" maxOccurs="unbounded"/>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>	
+				<xs:element name="location.type" minOccurs="0" maxOccurs="1">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element ref="locationType" minOccurs="1" maxOccurs="unbounded"/>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>		
+			</xs:all>
+		</xs:complexType>
+	</xs:element>
+	
 </xs:schema>
