@@ -20,7 +20,10 @@ TRiDaS dev Changelog
 - Added woodCompleteness.averageRingWidth
 - Added woodCompleteness.sapwood.nrOfUnmeasuredSapwoodRings
 - Added woodCompleteness.heartwood.nrOfUnmeasuredHeartwoodRings
-
+- Added address fields to location
+- Added address fields to project.laboratory
+- Added lastYear (with certainty and suffix) to interpretation
+- Removed value.index field
 
 Previous changes 
 (from version 1.1 to v1.2)
