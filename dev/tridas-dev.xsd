@@ -323,13 +323,9 @@ more information on http://www.gnu.org/licenses/lgpl.html
 
 	<!-- seriesLinksWithPreferred: a seriesLinks with a singular preferredSeries -->
 	<xs:complexType name="seriesLinksWithPreferred">
-		<xs:complexContent>
-			<xs:extension base="seriesLinks">
-				<xs:sequence>
-					<xs:element name="preferredSeries" type="seriesLink" minOccurs="0" maxOccurs="1" />
-				</xs:sequence>
-			</xs:extension>
-		</xs:complexContent>
+		<xs:sequence>
+			<xs:element name="preferredSeries" type="seriesLink" minOccurs="0" maxOccurs="1" />
+		</xs:sequence>
 	</xs:complexType>	
 	
 	<!-- type -->
@@ -1083,6 +1079,8 @@ from exactly one element and can be represented by one or more radii.
 			<xs:sequence>
 				<xs:element ref="ringCount" minOccurs="0"/>
 				<xs:element ref="averageRingWidth" minOccurs="0"/>
+				<xs:element ref="nrOfUnmeasuredInnerRings" minOccurs="0"/>
+				<xs:element ref="nrOfUnmeasuredOuterRings" minOccurs="0"/>
 				<xs:element ref="pith"/>
 				<xs:element ref="heartwood"/>
 				<xs:element ref="sapwood"/>
@@ -1094,7 +1092,7 @@ from exactly one element and can be represented by one or more radii.
 	<xs:element name="ringCount" type="xs:int">
 		<xs:annotation>
 			<xs:documentation>
-				Convenience field for recording the total number of rings measured.  In there is a disparity between this field and the actual number of 'values' tags, then the number of 'values' tags should be taken as definitive.
+				Convenience field for recording the total number of rings measured.  If there is a disparity between this field and the actual number of 'values' tags, then the number of 'values' tags should be taken as definitive.
 			</xs:documentation>
 		</xs:annotation>
 	</xs:element>
@@ -1102,7 +1100,23 @@ from exactly one element and can be represented by one or more radii.
 	<xs:element name="averageRingWidth" type="xs:double">
 		<xs:annotation>
 			<xs:documentation>
-				Convenience field for recording the average ring width of rings measured.  In there is a disparity between this field and the actual 'values' tags, then the average of the 'values' tags should be taken as definitive.
+				Convenience field for recording the average ring width of rings measured.  If there is a disparity between this field and the actual 'values' tags, then the average of the 'values' tags should be taken as definitive.
+			</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<!-- WOODCOMPLETENESS.nrOfUnmeasuredInnerRings-->
+	<xs:element name="nrOfUnmeasuredInnerRings" type="xs:int">
+		<xs:annotation>
+			<xs:documentation>
+				Field for recording whether there are any rings at the inner (i.e. towards pith) edge of the sample that have not been measured.  Typically used to note when rings are too damaged to measure.	
+			</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<!-- WOODCOMPLETENESS.nrOfUnmeasuredOuterRings-->
+	<xs:element name="nrOfUnmeasuredOuterRings" type="xs:int">
+		<xs:annotation>
+			<xs:documentation>
+				Field for recording whether there are any rings at the outer (i.e. towards bark) edge of the sample that have not been measured.  Typically used to note when rings are too damaged to measure.	
 			</xs:documentation>
 		</xs:annotation>
 	</xs:element>	
@@ -1121,24 +1135,16 @@ from exactly one element and can be represented by one or more radii.
 	<xs:element name="heartwood">
 		<xs:annotation>
 			<xs:documentation xml:lang="EN">
-				Whether the heartwood is present or absent
+				Whether the heartwood is complete or incomplete.  If the sample includes the last heartwood ring before the sapwood then it is 'complete' otherwise it is 'incomplete' or 'absent'.
 			</xs:documentation>
 		</xs:annotation>
 		<xs:complexType>
 			<xs:sequence>
-				<xs:element ref="nrOfUnmeasuredHeartwoodRings" minOccurs="0"/>
 				<xs:element ref="missingHeartwoodRingsToPith" minOccurs="0"/>
 				<xs:element ref="missingHeartwoodRingsToPithFoundation" minOccurs="0"/>
 			</xs:sequence>
 			<xs:attribute name="presence" use="required" type="complexPresenceAbsence"/>
 		</xs:complexType>
-	</xs:element>
-	<xs:element name="nrOfUnmeasuredHeartwoodRings" type="xs:int">
-		<xs:annotation>
-			<xs:documentation xml:lang="EN">
-				The number of heartwood rings that were seen but not measured
-			</xs:documentation>
-		</xs:annotation>
 	</xs:element>
 	<xs:element name="missingHeartwoodRingsToPith" type="xs:int">
 		<xs:annotation>
@@ -1164,7 +1170,6 @@ from exactly one element and can be represented by one or more radii.
 		<xs:complexType>
 			<xs:sequence>
 				<xs:element ref="nrOfSapwoodRings" minOccurs="0"/>
-				<xs:element ref="nrOfUnmeasuredSapwoodRings" minOccurs="0"/>
 				<xs:element ref="lastRingUnderBark" minOccurs="0"/>
 				<xs:element ref="missingSapwoodRingsToBark" minOccurs="0"/>
 				<xs:element ref="missingSapwoodRingsToBarkFoundation" minOccurs="0"/>
@@ -1182,13 +1187,6 @@ from exactly one element and can be represented by one or more radii.
 		<xs:annotation>
 			<xs:documentation xml:lang="EN">
 				Number of sapwood rings measured
-			</xs:documentation>
-		</xs:annotation>
-	</xs:element>
-	<xs:element name="nrOfUnmeasuredSapwoodRings" type="xs:int">
-		<xs:annotation>
-			<xs:documentation xml:lang="EN">
-				The number of sapwood rings that were seen but not measured
 			</xs:documentation>
 		</xs:annotation>
 	</xs:element>
