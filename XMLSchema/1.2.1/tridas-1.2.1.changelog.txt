@@ -1,0 +1,106 @@
+TRiDaS 1.2.1 Changelog
+***************************
+- Removed duplicate field derivedSeries.interpretation.usedSoftware as it is also present in derivedSeries.interpretation.statFoundation.
+- Replaced all xs:integer datatypes with xs:int as it better reflects the standard concept of an 'integer' in most programming languages.  xs:integer is unbound in terms of size so values could crash many programs that assume it to be a traditional 32 bit signed integer.
+- Changed the nrOfSapwoodRings datatype from xs:string to xs:int as it should always be an integer
+- Added documentation to statFoundation field
+- Added woodCompleteness to measurementSeries.  It was added to the baseSeries concept in v1.2 but was mistakenly not added to the measurementSeries sequence.
+- the usage and usageComments fields that were commented out in v1.2 have been completely removed
+- Changed interpretationUnsolved data type from string to empty
+- Changed linkSeries maxOccurs to 1 from unbounded as this is a container field that encompasses many series but should only be represented once itself.
+- Reintroduced measurementSeries.measuringDate
+- Added remark.inheritedCount 
+- Changed linkSeries to a datatype.  
+- Add <series> tags around each series in <linkSeries>
+- Extended linkSeries datatype to include <preferredSeries> in 'object'.
+- Renamed *series.interpretation.sproutYear to pithYear
+- Added tag *series.interpretation.dating with attribute "type" to enable the distinction between absolute and relatively dated series.
+- Added woodCompleteness.ringCount 
+- Added woodCompleteness.averageRingWidth
+- Added woodCompleteness.sapwood.nrOfUnmeasuredSapwoodRings
+- Added woodCompleteness.heartwood.nrOfUnmeasuredHeartwoodRings
+- Added address fields to location
+- Added address fields to project.laboratory
+- Added lastYear (with certainty and suffix) to interpretation
+- Removed value.index field as it is redundant 
+- Added vocabulary section to enable the sharing of dictionaries.  Includes tags for all controlled vocab entries in TRiDaS.
+
+Previous changes 
+(from version 1.1 to v1.2)
+***************************
+
+- Added object.preferredSeries
+- Added element.preferredSeries
+- Added 'unknown' option to all 'presence' lookups e.g. pithPresence
+- Allow <variable> and <unitless> to appear together in <value>
+- Removed erroneous maxOccurs="unbounded" from measurementSeries
+- derivedSeries and measurementSeries inherit common fields from baseSeries
+- Added woodCompleteness entity and included it in radius and measurementSeries
+- Make 'variable' required in *series
+- Separated TRiDaS normalised controlled vocabs into simpleTypes 
+- Separated common fields (id, title etc) into a base type from which each entity inherits
+- Corrected XSD error that stopped samples from having multiple radii 
+- Added documentation inline
+- Added controlled vocabulary to locationType
+- Removed the normalTridas attribute from taxon controlledVoc
+- Moved name, place and country element types inline in project.laboratory
+- Moved all TRiDaS vocabularies into own section of XSD
+- Added TRiDaS shape vocabulary
+- Added TRiDaS measuringMethod vocabulary
+- Removed unused measurementSeries.measuringDate 
+- Removed unused derivedSeries.derivationDate
+- Added type=PresenceAbsence to heartwood.presence
+- Changed the sequence of the dimensions tags in the XSD to be cleaner however this does not effect the style of TRiDaS XML files
+- Altered pith and heartwood presence to use the 'complexPresenceAbsence' datatype
+- Added presence attribute to 'lastRingUnderBark'
+- Added 'comments' field to all entities using the 'tridasEntity' base datatype
+- Renamed derivedSeries.extent to derivedSeries.location
+- usage and usageComments have been removed favouring their inclusion as generic fields
+- Changed the genericField 'type' attribute from free text to an enumerated list of standard XSD data types
+
+
+Previous changes 
+(from version 1.0 to v1.1)
+***************************
+
+- Changed header info to show new version number and date
+- Changed gml.xsd into gmlsf.xsd
+- Changed external reference to external schemas into local references
+- Added comment with URLs for download-locations of external schemas
+- The element 'date', which is reused in several sections of the code, has an attribute of 'certainty'.  In this version this attribute has been changed to 'optional' whereas it was previously 'required' 
+- The typographical error in linkSeries attribute idRref has been changed to idRef 
+- In element 'element' the child element 'sample' has been set to minOccurs=0 
+- In element 'radius' the child element 'measurementSeries' has been set to minOccurs=0
+- Added 'title' element to all entities to be used as a human readable identifier.  
+- Renamed project.projectTitle to project.title for consistency
+- Added radius.azimuth to record the angle in decimal degrees from true north that the radius is taken.
+- Deleted derivedSeries.units
+- Renamed element.function to element.type for consistency
+- Added derivedSeries.linkSeries
+- Deleted derivedSeries.usedSeries (replaced with derivedSeries.linkSeries)
+- Added createdTimestamp to each entity
+- Added lastModifiedTimestamp to each entity
+- Made derivedSeries.standardizingMethod optional
+- Synchronised the minOccurs and maxOccurs of all elements to coincide with the 'mandatory' and 'repeatable' fields in the documentation.
+- Moved element.linkSeries below element.identifier in sequence for consistency
+- Changed sample.samplingDate to optional. 
+- Added derivedSeries.extentGeometry and derivedSeries.extentComment
+- Added altitude, slopeAngle, slopeAzimuth, soilDescription, soilDepth and bedrockDescription to 'element'.
+- Combined the note and stdRemark fields in 'value' to a single 'remark' field using specialised controlled vocabulary.  The possible values are: Fire damage; Frost damage; Crack; False ring(s); Compression wood; Tension wood; Traumatic ducts; Unspecified injury.
+- Set minOccurs=0 and maxOccurs=unbounded in measurementSeries.values and derivedSeries.values
+- radius.lastRingUnderBark made mandatory
+- unit and variable has been moved into values-section
+- Option has been introduced to have it unitless instead of a variable and unit
+- Three types of date(time) are introduced: dateTime (xs:extension of xs:dateTime for timestamps) date (xs:extension of xs:date for where time is irrelevant) and year (xs:extension of xs:positiveInteger). The year has the attribute suffix, containing AD, BC or BP.  
+- Attribute normalTridas has been introduced to all controlledVoc-typed elements. In this attribute the TRiDaS community can add a specific TRiDaS 
+controlledVoc, that can be validated.
+- complexType date extension base has been changed into xs:dateTime instead of xs:string.
+- Renamed *Series.calendar to *Series.datingReference
+- Added the count attribute to the value element for storing the number of measurementSeries values that contribute to a derivedSeries value.
+- Removed unitsML namespace which is no longer required.
+- Added list of acceptable variables for TRiDaS dictionary
+- Added additional possible entries to TRiDaS units dictionary
+- Renamed datingReference/usedSeries into linkSeries
+- made year/@suffix required
+
+
