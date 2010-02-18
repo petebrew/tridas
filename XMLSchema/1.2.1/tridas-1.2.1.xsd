@@ -494,10 +494,10 @@ name of the organisation as long as it is not ambiguous.
 %%%%%%%%%%%%%% -->
 	<xs:element name="tridas">
 		<xs:complexType>
-			<xs:all>
-				<xs:element ref="project"/>
-				<xs:element ref="vocabulary"/>
-			</xs:all>
+			<xs:sequence>
+				<xs:element ref="project" minOccurs="0" maxOccurs="unbounded"/>
+				<xs:element ref="vocabulary" minOccurs="0" maxOccurs="1"/>
+			</xs:sequence>
 		</xs:complexType>
 	</xs:element>
 	<!-- 
