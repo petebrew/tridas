@@ -780,7 +780,7 @@ element and an element may be dated using one or more derivedSeries.
 					<xs:sequence>
 						<xs:element ref="type" minOccurs="0"/>
 						<xs:element ref="description" minOccurs="0"/>
-						<xs:element name="linkSeries" type="seriesLinks" minOccurs="0" maxOccurs="1"/>		
+						<xs:element name="linkSeries" type="seriesLinksWithPreferred" minOccurs="0" maxOccurs="1"/>		
 						<xs:element ref="file" minOccurs="0" maxOccurs="unbounded"/>
 						<xs:element ref="taxon"/>
 						<xs:element ref="shape" minOccurs="0"/>
@@ -1805,6 +1805,20 @@ TRiDaS controlled vocabulary.
 						</xs:sequence>
 					</xs:complexType>
 				</xs:element>	
+				<xs:element name="sample.type" minOccurs="0" maxOccurs="1">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element ref="type" minOccurs="1" maxOccurs="unbounded"/>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="derivedSeries.type" minOccurs="0" maxOccurs="1">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element ref="type" minOccurs="1" maxOccurs="unbounded"/>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>	
 				<xs:element name="element.taxon" minOccurs="0" maxOccurs="1">
 					<xs:complexType>
 						<xs:sequence>
@@ -1832,13 +1846,6 @@ TRiDaS controlled vocabulary.
 							<xs:element ref="variable" minOccurs="1" maxOccurs="unbounded"/>
 						</xs:sequence>
 					</xs:complexType>
-				</xs:element>	
-				<xs:element name="values.unit" minOccurs="0" maxOccurs="1">
-					<xs:complexType>
-						<xs:sequence>
-							<xs:element ref="unit" minOccurs="1" maxOccurs="unbounded"/>
-						</xs:sequence>
-					</xs:complexType>
 				</xs:element>					
 				<xs:element name="values.remark" minOccurs="0" maxOccurs="1">
 					<xs:complexType>
@@ -1854,6 +1861,13 @@ TRiDaS controlled vocabulary.
 						</xs:sequence>
 					</xs:complexType>
 				</xs:element>		
+				<xs:element name="global.unit" minOccurs="0" maxOccurs="1">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element ref="unit" minOccurs="1" maxOccurs="unbounded"/>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>					
 			</xs:all>
 		</xs:complexType>
 	</xs:element>
