@@ -6,7 +6,7 @@ TRiDaS 1.2.2 Changelog
 - Changed LocationGeometry from mandatory to optional
 - Removed radiusPlaceholder
 - Removed measurementSeriesPlaceholder
-
+- Added 'unknown' to the presenceAbsence data type used by bark and lastRingUnderBark fields
 
 Previous changes 
 (from version 1.2 to v1.2.1)
