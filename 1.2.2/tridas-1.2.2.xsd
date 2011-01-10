@@ -98,6 +98,8 @@ more information on http://www.gnu.org/licenses/lgpl.html
 			<xs:enumeration value="Location of use (mobile)"/>
 			<xs:enumeration value="Current location"/>
 			<xs:enumeration value="Manufacture location"/>
+			<xs:enumeration value="Find location"/>
+			<xs:enumeration value="Other"/>
 		</xs:restriction>
 	</xs:simpleType>
 	<!-- TRiDaS controlledVoc for Variable-->
