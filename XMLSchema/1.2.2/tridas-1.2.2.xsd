@@ -54,6 +54,7 @@ more information on http://www.gnu.org/licenses/lgpl.html
 			<xs:enumeration value="Hand lens and graticule"/>
 			<xs:enumeration value="Onscreen measuring"/>
 			<xs:enumeration value="Visual estimate"/>
+			<xs:enumeration value="Other"/>
 		</xs:restriction>
 	</xs:simpleType>	
 	<!-- TRiDaS controlledVoc for shape-->
@@ -116,6 +117,8 @@ more information on http://www.gnu.org/licenses/lgpl.html
 			<xs:enumeration value="Latewood density"/>
 			<xs:enumeration value="Maximum density"/>
 			<xs:enumeration value="Latewood percent"/>
+			<xs:enumeration value="Vessel size"/>
+			<xs:enumeration value="Other"/>
 		</xs:restriction>
 	</xs:simpleType>
 	<!-- TRiDaS controlledVoc for Units-->
