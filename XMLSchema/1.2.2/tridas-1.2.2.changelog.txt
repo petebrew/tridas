@@ -7,9 +7,10 @@ TRiDaS 1.2.2 Changelog
 - Removed radiusPlaceholder
 - Removed measurementSeriesPlaceholder
 - Added 'unknown' to the presenceAbsence data type used by bark and lastRingUnderBark fields
-- Added 'Find location' and 'Other' to locationType enumeration
+- Added 'find location' and 'other' to locationType enumeration
 - Changed all enums to lower case
 - Added 11 additional ring remark enums
+- Added 'onscreen measuring', 'visual estimate' and 'other' to measuring method enum
 
 Previous changes 
 (from version 1.2 to v1.2.1)
