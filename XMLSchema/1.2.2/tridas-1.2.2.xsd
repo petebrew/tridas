@@ -54,7 +54,6 @@ more information on http://www.gnu.org/licenses/lgpl.html
 			<xs:enumeration value="hand lens and graticule"/>
 			<xs:enumeration value="onscreen measuring"/>
 			<xs:enumeration value="visual estimate"/>
-			<xs:enumeration value="other"/>
 		</xs:restriction>
 	</xs:simpleType>	
 	<!-- TRiDaS controlledVoc for shape-->
@@ -84,6 +83,7 @@ more information on http://www.gnu.org/licenses/lgpl.html
 			<xs:enumeration value="small part of section"/>
 			<xs:enumeration value="part of undetermined section"/>
 			<xs:enumeration value="unknown"/>
+			<xs:enumeration value="other"/>
 		</xs:restriction>
 	</xs:simpleType>
 <!-- TRiDaS controlledVoc for LocationType-->
@@ -100,7 +100,6 @@ more information on http://www.gnu.org/licenses/lgpl.html
 			<xs:enumeration value="current location"/>
 			<xs:enumeration value="manufacture location"/>
 			<xs:enumeration value="find location"/>
-			<xs:enumeration value="other"/>
 		</xs:restriction>
 	</xs:simpleType>
 	<!-- TRiDaS controlledVoc for Variable-->
@@ -118,7 +117,6 @@ more information on http://www.gnu.org/licenses/lgpl.html
 			<xs:enumeration value="maximum density"/>
 			<xs:enumeration value="latewood percent"/>
 			<xs:enumeration value="vessel size"/>
-			<xs:enumeration value="other"/>
 		</xs:restriction>
 	</xs:simpleType>
 	<!-- TRiDaS controlledVoc for Units-->
